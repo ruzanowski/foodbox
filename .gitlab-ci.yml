@@ -1,7 +1,6 @@
 image: mcr.microsoft.com/dotnet/core/sdk:3.1.300
 
 deploy:
-  stage: docker_deploy
   image: docker:dind
   variables:
     DOCKER_DRIVER: overlay2
