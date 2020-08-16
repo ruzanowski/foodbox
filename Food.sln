@@ -21,6 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food.Web.Core", "src\Food.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.EntityFrameworkCore", "src\Food.EntityFrameworkCore\Food.EntityFrameworkCore.csproj", "{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "slnitems", "slnitems", "{9F4AB711-6A36-49F5-B99D-FF0E2080373E}"
+ProjectSection(SolutionItems) = preProject
+	.gitlab-ci.yml = .gitlab-ci.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
