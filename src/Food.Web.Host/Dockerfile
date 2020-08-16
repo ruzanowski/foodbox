@@ -9,6 +9,12 @@ RUN dotnet restore
 # copy everything else and build app
 WORKDIR /source
 COPY . .
+COPY Food.Application/*.csproj ./Food.Application
+COPY Food.Core/*.csproj ./Food.Core
+COPY Food.EntityFrameworkCore/*.csproj ./Food.EntityFrameworkCore
+COPY Food.Migrator/*.csproj ./Food.Migrator
+COPY Food.Web.Core/*.csproj ./Food.Web.Core
+COPY Food.Web.Host/*.csproj ./Food.Web.Host
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
