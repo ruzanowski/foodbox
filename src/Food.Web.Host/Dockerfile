@@ -1,4 +1,10 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
+
+RUN apk add --no-cache icu-libs
+
+# Disable the invariant mode (set in base image)
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 WORKDIR /source
 
 # copy csproj and restore as distinct layers

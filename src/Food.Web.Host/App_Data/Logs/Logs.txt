@@ -678,3 +678,127 @@ INFO  2020-07-03 19:12:57,628 [11   ] c.Infrastructure.ControllerActionInvoker -
 INFO  2020-07-03 19:12:57,628 [11   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Food.Web.Host.Controllers.AntiForgeryController.SetCookie (Food.Web.Host)'
 INFO  2020-07-03 19:12:57,629 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 305.8532ms 200 application/json; charset=utf-8
 INFO  2020-07-03 19:12:57,687 [14   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 256.9096ms 200 application/json;charset=utf-8
+DEBUG 2020-08-17 23:08:50,096 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2020-08-17 23:08:50,175 [1    ] Abp.Modules.AbpModuleManager             - Found 15 ABP modules in total.
+DEBUG 2020-08-17 23:08:50,188 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Food.Web.Host.Startup.FoodWebHostModule, Food.Web.Host, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,189 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Food.Core.FoodWebCoreModule, Food.Web.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,190 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Food.FoodApplicationModule, Food.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,190 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Food.FoodCoreModule, Food.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,190 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.ZeroCore, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,190 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCommonModule, Abp.Zero.Common, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,190 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,191 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,191 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Food.EntityFrameworkCore.FoodEntityFrameworkModule, Food.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,191 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.EntityFrameworkCore.AbpZeroCoreEntityFrameworkCoreModule, Abp.ZeroCore.EntityFrameworkCore, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,192 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule, Abp.EntityFrameworkCore, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,192 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkCommonModule, Abp.EntityFramework.Common, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,192 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.AbpAspNetCoreModule, Abp.AspNetCore, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,192 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebCommonModule, Abp.Web.Common, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,192 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule, Abp.AspNetCore.SignalR, Version=5.10.1.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,194 [1    ] Abp.Modules.AbpModuleManager             - 15 modules loaded.
+DEBUG 2020-08-17 23:08:50,250 [1    ] o.Configuration.LanguageManagementConfig - Converted Abp (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-08-17 23:08:50,250 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpZero (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-08-17 23:08:50,250 [1    ] o.Configuration.LanguageManagementConfig - Converted Food (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-08-17 23:08:50,250 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpWeb (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2020-08-17 23:08:50,522 [1    ] ameworkCore.AbpEntityFrameworkCoreModule - Registering DbContext: Food.EntityFrameworkCore.FoodDbContext, Food.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2020-08-17 23:08:50,824 [1    ] Abp.Localization.LocalizationManager     - Initializing 4 localization sources.
+DEBUG 2020-08-17 23:08:50,909 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2020-08-17 23:08:50,988 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpZero
+DEBUG 2020-08-17 23:08:51,010 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Food
+DEBUG 2020-08-17 23:08:51,064 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpWeb
+DEBUG 2020-08-17 23:08:51,100 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Castle.Proxies.BackgroundJobManagerProxy
+DEBUG 2020-08-17 23:08:51,119 [1    ] , Culture=neutral, PublicKeyToken=null]] - Start background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[Food.MultiTenancy.Tenant, Food.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Food.Authorization.Users.User, Food.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+DEBUG 2020-08-17 23:08:51,149 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 8 classes define auto mapping attributes
+DEBUG 2020-08-17 23:08:51,149 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.Core.Models.TokenAuth.ExternalLoginProviderInfoModel
+DEBUG 2020-08-17 23:08:51,153 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.Users.Dto.CreateUserDto
+DEBUG 2020-08-17 23:08:51,153 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.Users.Dto.UserDto
+DEBUG 2020-08-17 23:08:51,154 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.Sessions.Dto.TenantLoginInfoDto
+DEBUG 2020-08-17 23:08:51,154 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.Sessions.Dto.UserLoginInfoDto
+DEBUG 2020-08-17 23:08:51,154 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.Roles.Dto.PermissionDto
+DEBUG 2020-08-17 23:08:51,154 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.MultiTenancy.Dto.CreateTenantDto
+DEBUG 2020-08-17 23:08:51,154 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Food.MultiTenancy.Dto.TenantDto
+INFO  2020-08-17 23:08:52,684 [1    ] tCore.Builder.RequestLocalizationOptions - Supported Request Localization Cultures: en,es-MX,fr,de,it,nl,pt-BR,tr,ru,ar,ja,zh-Hans
+INFO  2020-08-17 23:08:52,837 [1    ] taProtection.KeyManagement.XmlKeyManager - User profile is available. Using 'C:\Users\Sebastian\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+WARN  2020-08-17 23:08:52,864 [1    ] Microsoft.AspNetCore.Server.Kestrel      - Overriding address(es) 'http://localhost:21021/'. Binding to endpoints defined in UseKestrel() instead.
+INFO  2020-08-17 23:08:53,627 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/  
+INFO  2020-08-17 23:08:53,731 [8    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Food.Web.Host.Controllers.HomeController.Index (Food.Web.Host)'
+INFO  2020-08-17 23:08:54,516 [8    ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Food.Web.Host.Controllers.HomeController (Food.Web.Host).
+INFO  2020-08-17 23:08:54,951 [17   ] vc.Infrastructure.RedirectResultExecutor - Executing RedirectResult, redirecting to /swagger.
+INFO  2020-08-17 23:08:54,954 [17   ] c.Infrastructure.ControllerActionInvoker - Executed action Food.Web.Host.Controllers.HomeController.Index (Food.Web.Host) in 435.8833ms
+INFO  2020-08-17 23:08:54,954 [17   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Food.Web.Host.Controllers.HomeController.Index (Food.Web.Host)'
+INFO  2020-08-17 23:08:54,959 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 1333.2111ms 302 
+INFO  2020-08-17 23:08:54,963 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger  
+INFO  2020-08-17 23:08:54,978 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 14.2029ms 301 
+INFO  2020-08-17 23:08:54,981 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/index.html  
+INFO  2020-08-17 23:08:55,000 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 19.3826ms 200 text/html;charset=utf-8
+INFO  2020-08-17 23:08:55,020 [17   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/swagger-ui.css  
+INFO  2020-08-17 23:08:55,020 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/swagger-ui-bundle.js  
+INFO  2020-08-17 23:08:55,023 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/swagger-ui-standalone-preset.js  
+INFO  2020-08-17 23:08:55,024 [4    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/ui/abp.js  
+INFO  2020-08-17 23:08:55,024 [18   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/ui/abp.swagger.js  
+INFO  2020-08-17 23:08:55,035 [4    ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger/ui/abp.js'. Physical path: 'C:\Users\Sebastian\Desktop\FoodBox\aspnet-core\src\Food.Web.Host\wwwroot\swagger\ui\abp.js'
+INFO  2020-08-17 23:08:55,035 [18   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger/ui/abp.swagger.js'. Physical path: 'C:\Users\Sebastian\Desktop\FoodBox\aspnet-core\src\Food.Web.Host\wwwroot\swagger\ui\abp.swagger.js'
+INFO  2020-08-17 23:08:55,035 [4    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 11.5445ms 200 application/javascript
+INFO  2020-08-17 23:08:55,035 [18   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 11.1757ms 200 application/javascript
+INFO  2020-08-17 23:08:55,039 [10   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+INFO  2020-08-17 23:08:55,041 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 18.3163ms 200 application/javascript
+INFO  2020-08-17 23:08:55,042 [15   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+INFO  2020-08-17 23:08:55,043 [15   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 22.4138ms 200 text/css
+INFO  2020-08-17 23:08:55,044 [11   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+INFO  2020-08-17 23:08:55,045 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 24.1824ms 200 application/javascript
+INFO  2020-08-17 23:08:55,240 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AntiForgery/SetCookie  
+INFO  2020-08-17 23:08:55,247 [11   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Food.Web.Host.Controllers.AntiForgeryController.SetCookie (Food.Web.Host)'
+INFO  2020-08-17 23:08:55,279 [11   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "SetCookie", controller = "AntiForgery", area = ""}. Executing controller action with signature Void SetCookie() on controller Food.Web.Host.Controllers.AntiForgeryController (Food.Web.Host).
+INFO  2020-08-17 23:08:55,296 [15   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/v1/swagger.json  
+INFO  2020-08-17 23:08:55,299 [11   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-08-17 23:08:55,391 [11   ] c.Infrastructure.ControllerActionInvoker - Executed action Food.Web.Host.Controllers.AntiForgeryController.SetCookie (Food.Web.Host) in 111.8962ms
+INFO  2020-08-17 23:08:55,391 [11   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Food.Web.Host.Controllers.AntiForgeryController.SetCookie (Food.Web.Host)'
+INFO  2020-08-17 23:08:55,391 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 153.9443ms 200 application/json; charset=utf-8
+INFO  2020-08-17 23:08:55,403 [15   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 107.9756ms 200 application/json;charset=utf-8
+INFO  2020-08-17 23:09:04,283 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/v1/swagger.json  
+INFO  2020-08-17 23:09:04,301 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 17.7473ms 200 application/json;charset=utf-8
+INFO  2020-08-17 23:09:04,458 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/favicon.ico  
+INFO  2020-08-17 23:09:04,460 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 1.2656ms 404 
+INFO  2020-08-17 23:09:07,509 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/  
+INFO  2020-08-17 23:09:07,510 [11   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Food.Web.Host.Controllers.HomeController.Index (Food.Web.Host)'
+INFO  2020-08-17 23:09:07,514 [11   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Food.Web.Host.Controllers.HomeController (Food.Web.Host).
+INFO  2020-08-17 23:09:07,522 [11   ] vc.Infrastructure.RedirectResultExecutor - Executing RedirectResult, redirecting to /swagger.
+INFO  2020-08-17 23:09:07,523 [11   ] c.Infrastructure.ControllerActionInvoker - Executed action Food.Web.Host.Controllers.HomeController.Index (Food.Web.Host) in 8.7167ms
+INFO  2020-08-17 23:09:07,523 [11   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Food.Web.Host.Controllers.HomeController.Index (Food.Web.Host)'
+INFO  2020-08-17 23:09:07,523 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 14.0597ms 302 
+INFO  2020-08-17 23:09:07,528 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/index.html  
+INFO  2020-08-17 23:09:07,530 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 1.3614ms 200 text/html;charset=utf-8
+INFO  2020-08-17 23:09:07,719 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/AntiForgery/SetCookie  
+INFO  2020-08-17 23:09:07,720 [8    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Food.Web.Host.Controllers.AntiForgeryController.SetCookie (Food.Web.Host)'
+INFO  2020-08-17 23:09:07,722 [8    ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "SetCookie", controller = "AntiForgery", area = ""}. Executing controller action with signature Void SetCookie() on controller Food.Web.Host.Controllers.AntiForgeryController (Food.Web.Host).
+INFO  2020-08-17 23:09:07,727 [8    ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-08-17 23:09:07,728 [8    ] c.Infrastructure.ControllerActionInvoker - Executed action Food.Web.Host.Controllers.AntiForgeryController.SetCookie (Food.Web.Host) in 5.8551ms
+INFO  2020-08-17 23:09:07,728 [8    ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Food.Web.Host.Controllers.AntiForgeryController.SetCookie (Food.Web.Host)'
+INFO  2020-08-17 23:09:07,728 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 9.6589ms 200 application/json; charset=utf-8
+INFO  2020-08-17 23:09:07,752 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/swagger/v1/swagger.json  
+INFO  2020-08-17 23:09:07,763 [11   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 11.4605ms 200 application/json;charset=utf-8
+INFO  2020-08-17 23:09:21,783 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET http://localhost:21021/api/services/app/User/GetAll  
+INFO  2020-08-17 23:09:21,784 [8    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'Food.Users.UserAppService.GetAllAsync (Food.Application)'
+INFO  2020-08-17 23:09:21,806 [8    ] c.Infrastructure.ControllerActionInvoker - Route matched with {area = "app", action = "GetAll", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Abp.Application.Services.Dto.PagedResultDto`1[Food.Users.Dto.UserDto]] GetAllAsync(Food.Users.Dto.PagedUserResultRequestDto) on controller Food.Users.UserAppService (Food.Application).
+WARN  2020-08-17 23:09:22,135 [8    ] Mvc.ExceptionHandling.AbpExceptionFilter - Current user did not login to the application!
+Abp.Authorization.AbpAuthorizationException: Current user did not login to the application!
+   at Abp.Authorization.AuthorizationHelper.AuthorizeAsync(IEnumerable`1 authorizeAttributes)
+   at Abp.Authorization.AuthorizationHelper.CheckPermissionsAsync(MethodInfo methodInfo, Type type)
+   at Abp.Authorization.AuthorizationHelper.AuthorizeAsync(MethodInfo methodInfo, Type type)
+   at Abp.Authorization.AuthorizationInterceptor.InternalInterceptAsynchronous[TResult](IInvocation invocation)
+   at Abp.Domain.Uow.UnitOfWorkInterceptor.InternalInterceptAsynchronous[TResult](IInvocation invocation)
+   at Abp.Auditing.AuditingInterceptor.InternalInterceptAsynchronous[TResult](IInvocation invocation)
+   at Abp.Runtime.Validation.Interception.ValidationInterceptor.InternalInterceptAsynchronous[TResult](IInvocation invocation)
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+INFO  2020-08-17 23:09:22,139 [8    ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2020-08-17 23:09:22,142 [8    ] c.Infrastructure.ControllerActionInvoker - Executed action Food.Users.UserAppService.GetAllAsync (Food.Application) in 336.7542ms
+INFO  2020-08-17 23:09:22,143 [8    ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'Food.Users.UserAppService.GetAllAsync (Food.Application)'
+INFO  2020-08-17 23:09:22,143 [8    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished in 359.8546ms 401 application/json; charset=utf-8
