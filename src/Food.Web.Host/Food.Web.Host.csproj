@@ -13,6 +13,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="wwwroot\swagger\ui\index.html" />
+    <Content Remove="Food.Application\**" />
+    <Content Remove="Food.Core\**" />
+    <Content Remove="Food.EntityFrameworkCore\**" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -26,6 +29,9 @@
     <None Update="wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
+    <None Remove="Food.Application\**" />
+    <None Remove="Food.Core\**" />
+    <None Remove="Food.EntityFrameworkCore\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Food.Web.Core\Food.Web.Core.csproj" />
@@ -41,5 +47,21 @@
     <EmbeddedResource Include="wwwroot\swagger\ui\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Remove="Food.Application\**" />
+    <EmbeddedResource Remove="Food.Core\**" />
+    <EmbeddedResource Remove="Food.EntityFrameworkCore\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Food.Application\**" />
+    <Compile Remove="Food.Core\**" />
+    <Compile Remove="Food.EntityFrameworkCore\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Food.Application\obj\Food.Application.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Food.Application\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Food.Core\obj\Food.Core.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Food.Core\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Food.EntityFrameworkCore\obj\Food.EntityFrameworkCore.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Food.EntityFrameworkCore\obj\project.assets.json" />
   </ItemGroup>
 </Project>

@@ -3,12 +3,6 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.csproj .
-COPY Food.Application/*.csproj ./Food.Application
-COPY Food.Core/*.csproj ./Food.Core
-COPY Food.EntityFrameworkCore/*.csproj ./Food.EntityFrameworkCore
-COPY Food.Migrator/*.csproj ./Food.Migrator
-COPY Food.Web.Core/*.csproj ./Food.Web.Core
-COPY Food.Web.Host/*.csproj ./Food.Web.Host
 COPY . .
 RUN dotnet restore
 
