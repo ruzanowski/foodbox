@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
 using Abp.Web.Security.AntiForgery;
+using Food.Core.Controllers;
 using Microsoft.AspNetCore.Antiforgery;
-using Food.Controllers;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Food.Web.Host.Controllers
 {

@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Food.Configuration;
+using Food.Core;
+using Food.Core.Configuration;
 
 namespace Food.Web.Host.Startup
 {
