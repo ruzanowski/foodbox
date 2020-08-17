@@ -1,10 +1,4 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
-
-RUN apk add --no-cache icu-libs
-
-# Disable the invariant mode (set in base image)
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
-
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
@@ -22,6 +16,9 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 WORKDIR /app
 COPY --from=build /app ./
 
+RUN apk add --no-cache icu-libs
+
 # environment variables
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 ENV ASPNETCORE_URLS http://*:9901
 ENTRYPOINT ["dotnet", "Food.Web.Host.dll"]
