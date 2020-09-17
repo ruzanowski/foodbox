@@ -54,8 +54,7 @@ namespace Food.Core.Controllers
         {
             var loginResult = await GetLoginResultAsync(
                 model.UserNameOrEmailAddress,
-                model.Password,
-                GetTenancyNameOrNull()
+                model.Password
             );
 
             var accessToken = CreateAccessToken(CreateJwtClaims(loginResult.Identity));
@@ -180,9 +179,9 @@ namespace Food.Core.Controllers
             return _tenantCache.GetOrNull(AbpSession.TenantId.Value)?.TenancyName;
         }
 
-        private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
+        private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName = AbpTenantBase.DefaultTenantName)
         {
-            var loginResult = await _logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
+            var loginResult = await _logInManager.LoginAsync(usernameOrEmailAddress, password);
 
             switch (loginResult.Result)
             {

@@ -58,10 +58,11 @@ namespace Food.Users
 
             var user = ObjectMapper.Map<User>(input);
 
-            user.TenantId = AbpSession.TenantId;
+            var tenantId = 1;
+            user.TenantId = tenantId;
             user.IsEmailConfirmed = true;
 
-            await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
+            await _userManager.InitializeOptionsAsync(tenantId);
 
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
 
@@ -70,7 +71,7 @@ namespace Food.Users
                 CheckErrors(await _userManager.SetRolesAsync(user, input.RoleNames));
             }
 
-            CurrentUnitOfWork.SaveChanges();
+            await CurrentUnitOfWork.SaveChangesAsync();
 
             return MapToEntityDto(user);
         }
@@ -217,7 +218,7 @@ namespace Food.Users
             if (user != null)
             {
                 user.Password = _passwordHasher.HashPassword(user, input.NewPassword);
-                CurrentUnitOfWork.SaveChanges();
+                await CurrentUnitOfWork.SaveChangesAsync();
             }
 
             return true;

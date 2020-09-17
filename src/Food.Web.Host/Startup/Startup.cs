@@ -89,12 +89,12 @@ namespace Food.Web.Host.Startup
                     {
                         Name = "Food",
                         Email = string.Empty,
-                        Url = new Uri("https://twitter.com/aspboilerplate"),
+                        Url = new Uri("https://twitter.com/fitruna"),
                     },
                     License = new OpenApiLicense
                     {
                         Name = "MIT License",
-                        Url = new Uri("https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE"),
+                        Url = new Uri("https://gitlab.com/ruzanowski/fitruna"),
                     }
                 });
                 options.DocInclusionPredicate((docName, description) => true);
