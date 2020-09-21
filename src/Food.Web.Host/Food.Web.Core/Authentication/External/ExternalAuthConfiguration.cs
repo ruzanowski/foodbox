@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Abp.Dependency;
+using Microsoft.Extensions.Configuration;
 
 namespace Food.Core.Authentication.External
 {
@@ -7,9 +9,17 @@ namespace Food.Core.Authentication.External
     {
         public List<ExternalLoginProviderInfo> Providers { get; }
 
-        public ExternalAuthConfiguration()
+        public ExternalAuthConfiguration(IConfiguration configuration)
         {
-            Providers = new List<ExternalLoginProviderInfo>();
+            Providers = new List<ExternalLoginProviderInfo>()
+            {
+                new ExternalLoginProviderInfo(
+                    FacebookAuthProvider.Name,
+                    configuration["Authentication:Facebook:AppId"],
+                    configuration["Authentication:Facebook:AppSecret"],
+                    typeof(FacebookAuthProvider)
+                )
+            };
         }
     }
 }

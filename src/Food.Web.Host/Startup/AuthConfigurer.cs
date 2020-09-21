@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Abp.Runtime.Security;
+using Food.Core.Authentication.External;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.Extensions.Options;
 
 namespace Food.Web.Host.Startup
 {
@@ -14,9 +17,7 @@ namespace Food.Web.Host.Startup
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
-            if (bool.Parse(configuration["Authentication:JwtBearer:IsEnabled"]))
-            {
-                services.AddAuthentication(options => {
+            services.AddAuthentication(options => {
                     options.DefaultAuthenticateScheme = "JwtBearer";
                     options.DefaultChallengeScheme = "JwtBearer";
                 }).AddJwtBearer("JwtBearer", options =>
@@ -48,8 +49,13 @@ namespace Food.Web.Host.Startup
                     {
                         OnMessageReceived = QueryStringTokenResolver
                     };
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = configuration["Authentication:Facebook:AppId"];
+                    options.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+                    options.AccessDeniedPath = "/AccessDeniedPathInfo";
                 });
-            }
         }
 
         /* This method is needed to authorize SignalR javascript client.
