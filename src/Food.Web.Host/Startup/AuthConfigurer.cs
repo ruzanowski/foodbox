@@ -54,7 +54,11 @@ namespace Food.Web.Host.Startup
                 {
                     options.AppId = configuration["Authentication:Facebook:AppId"];
                     options.AppSecret = configuration["Authentication:Facebook:AppSecret"];
-                    options.AccessDeniedPath = "/AccessDeniedPathInfo";
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = configuration["Authentication:Google:AppId"];
+                    options.ClientSecret = configuration["Authentication:Google:AppSecret"];
                 });
         }
 

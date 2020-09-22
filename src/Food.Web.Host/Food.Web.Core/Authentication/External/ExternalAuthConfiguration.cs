@@ -18,6 +18,12 @@ namespace Food.Core.Authentication.External
                     configuration["Authentication:Facebook:AppId"],
                     configuration["Authentication:Facebook:AppSecret"],
                     typeof(FacebookAuthProvider)
+                ),
+                new ExternalLoginProviderInfo(
+                    GoogleAuthProvider.Name,
+                    configuration["Authentication:Google:AppId"],
+                    configuration["Authentication:Google:AppSecret"],
+                    typeof(GoogleAuthProvider)
                 )
             };
         }
