@@ -10,7 +10,7 @@ namespace Food.Core.Authentication.External
         private static readonly HttpClient Client = new HttpClient();
         public const string Name = "Facebook";
 
-        public override async Task<ExternalAuthUserInfo> GetUserInfo(string accessCode)
+        public override async Task<ExternalAuthUserInfo> GetUserInfo(string userId, string accessCode)
         {
             //gen app access token
             var appAccessTokenResponse = await Client.GetStringAsync("https://graph.facebook.com/oauth/access_token" +

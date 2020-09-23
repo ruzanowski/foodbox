@@ -19,7 +19,7 @@ namespace Food.Core.Authentication.External
         /// </summary>
         /// <param name="accessCode"></param>
         /// <returns></returns>
-        public override async Task<ExternalAuthUserInfo> GetUserInfo(string accessCode)
+        public override async Task<ExternalAuthUserInfo> GetUserInfo(string userId, string accessCode)
         {
             var flow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
             {
@@ -32,7 +32,7 @@ namespace Food.Core.Authentication.External
             });
 
 
-            TokenResponse credential = await flow.ExchangeCodeForTokenAsync("user-id", accessCode, "postmessage", CancellationToken.None);
+            TokenResponse credential = await flow.ExchangeCodeForTokenAsync(userId, accessCode, "postmessage", CancellationToken.None);
             var idtokenpayload = await GoogleJsonWebSignature.ValidateAsync(credential.IdToken);
 
             return new ExternalAuthUserInfo

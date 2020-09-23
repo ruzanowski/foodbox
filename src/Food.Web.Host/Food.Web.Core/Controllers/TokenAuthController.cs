@@ -160,7 +160,7 @@ namespace Food.Core.Controllers
 
         private async Task<ExternalAuthUserInfo> GetExternalUserInfo(ExternalAuthenticateModel model)
         {
-            var userInfo = await _externalAuthManager.GetUserInfo(model.AuthProvider, model.ProviderAccessCode);
+            var userInfo = await _externalAuthManager.GetUserInfo(model.AuthProvider, model.ProviderKey, model.ProviderAccessCode);
             if (userInfo.ProviderKey != model.ProviderKey)
             {
                 throw new UserFriendlyException(L("CouldNotValidateExternalUser"));

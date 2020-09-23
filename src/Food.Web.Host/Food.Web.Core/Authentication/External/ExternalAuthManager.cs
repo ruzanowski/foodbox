@@ -24,11 +24,11 @@ namespace Food.Core.Authentication.External
             }
         }
 
-        public Task<ExternalAuthUserInfo> GetUserInfo(string provider, string accessCode)
+        public Task<ExternalAuthUserInfo> GetUserInfo(string provider, string userId, string accessCode)
         {
             using (var providerApi = CreateProviderApi(provider))
             {
-                return providerApi.Object.GetUserInfo(accessCode);
+                return providerApi.Object.GetUserInfo(userId, accessCode);
             }
         }
 

@@ -15,13 +15,12 @@ namespace Food.Core.Authentication.External
 
         public async Task<bool> IsValidUser(string userId, string accessCode)
         {
-            var userInfo = await GetUserInfo(accessCode);
+            var userInfo = await GetUserInfo(userId, accessCode);
             return userInfo.ProviderKey == userId;
         }
 
-        public abstract Task<ExternalAuthUserInfo> GetUserInfo(string accessCode);
+        public abstract Task<ExternalAuthUserInfo> GetUserInfo(string userId, string accessCode);
     }
-
 
     internal class FacebookUserData
     {

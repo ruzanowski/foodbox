@@ -8,7 +8,7 @@ namespace Food.Core.Authentication.External
 
         Task<bool> IsValidUser(string userId, string accessCode);
 
-        Task<ExternalAuthUserInfo> GetUserInfo(string accessCode);
+        Task<ExternalAuthUserInfo> GetUserInfo(string userId, string accessCode);
 
         void Initialize(ExternalLoginProviderInfo providerInfo);
     }

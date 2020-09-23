@@ -6,10 +6,7 @@ namespace Food.Tests
     {
         public MultiTenantFactAttribute()
         {
-            if (!FoodConsts.MultiTenancyEnabled)
-            {
-                Skip = "MultiTenancy is disabled.";
-            }
+            Skip = "MultiTenancy is disabled.";
         }
     }
 }
