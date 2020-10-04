@@ -11,7 +11,6 @@ using Abp.AspNetCore;
 using Abp.AspNetCore.Mvc.Antiforgery;
 using Abp.Castle.Logging.Log4Net;
 using Abp.Extensions;
-using Food.Configuration;
 using Food.Identity;
 using Abp.AspNetCore.SignalR.Hubs;
 using Abp.Dependency;

@@ -4,7 +4,6 @@ using Abp;
 using Abp.Extensions;
 using Abp.Notifications;
 using Abp.Timing;
-using Abp.Web.Security.AntiForgery;
 using Food.Core.Controllers;
 
 namespace Food.Web.Host.Controllers

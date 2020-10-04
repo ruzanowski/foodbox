@@ -18,6 +18,11 @@
     <Content Remove="Food.EntityFrameworkCore\**" />
     <Content Remove="Food.Migrator\**" />
     <Content Remove="Food.Web.Core\**" />
+    <Content Update="TestingJsons\Create.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -101,5 +106,8 @@
     <ProjectReference Include="Food.Core\Food.Core.csproj" />
     <ProjectReference Include="Food.EntityFrameworkCore\Food.EntityFrameworkCore.csproj" />
     <ProjectReference Include="Food.Web.Core\Food.Web.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logs" />
   </ItemGroup>
 </Project>

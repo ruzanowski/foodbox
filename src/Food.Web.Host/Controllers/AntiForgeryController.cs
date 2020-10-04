@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Abp.Web.Security.AntiForgery;
 using Food.Core.Controllers;
 using Microsoft.AspNetCore.Antiforgery;

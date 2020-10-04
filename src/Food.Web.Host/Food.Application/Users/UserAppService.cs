@@ -58,11 +58,10 @@ namespace Food.Users
 
             var user = ObjectMapper.Map<User>(input);
 
-            var tenantId = 1;
-            user.TenantId = tenantId;
+            user.TenantId = null;
             user.IsEmailConfirmed = true;
 
-            await _userManager.InitializeOptionsAsync(tenantId);
+            await _userManager.InitializeOptionsAsync(user.TenantId);
 
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
 

@@ -1,0 +1,99 @@
+{
+  "form": {
+    "firstName": "Sebastian",
+    "lastName": "Rużanowski",
+    "phoneNumber": "516-237-849",
+    "email": "sebastian.ruzanowski@gmail.com",
+    "street": "Dzielna",
+    "city": "Wrocław",
+    "postCode": "54-152",
+    "buildingNumber": "19",
+    "flatNumber": "8",
+    "gateAccessCode": "5#4324",
+    "remarks": "Proszę zostawić pod drzwiami"
+  },
+  "basket": {
+    "items": [
+      {
+        "productId": 1,
+        "count": 1,
+        "weekendsIncluded": true,
+        "deliveryTimes": [
+          {
+            "preferableTimeDelivery": "2020-10-01T14:51:27.736Z",
+            "dateTime": "2020-10-01T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-02T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-03T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-04T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-05T14:51:27.736Z"
+          }
+        ]
+      },
+      {
+        "productId": 2,
+        "count": 3,
+        "weekendsIncluded": true,
+        "deliveryTimes": [
+          {
+            "preferableTimeDelivery": "2020-10-01T14:51:27.736Z",
+            "dateTime": "2020-10-01T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-02T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-03T14:51:27.736Z"
+          }
+        ]
+      },
+      {
+        "productId": 2,
+        "count": 1,
+        "weekendsIncluded": false,
+        "deliveryTimes": [
+          {
+            "preferableTimeDelivery": "2020-10-01T14:51:27.736Z",
+            "dateTime": "2020-10-01T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-04T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-05T14:51:27.736Z"
+          }
+        ]
+      },
+      {
+        "productId": 1,
+        "count": 10,
+        "weekendsIncluded": false,
+        "deliveryTimes": [
+          {
+            "preferableTimeDelivery": "2020-10-01T14:51:27.736Z",
+            "dateTime": "2020-10-01T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-05T14:51:27.736Z"
+          }
+        ]
+      }
+    ]
+  }
+}

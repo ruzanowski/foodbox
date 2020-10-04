@@ -17,6 +17,7 @@ namespace Food.Core.Authentication.External
         /// 2) we use the id token and send it for validation, which will also give us back the user details.
         /// (as long as we have the profile scope)
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="accessCode"></param>
         /// <returns></returns>
         public override async Task<ExternalAuthUserInfo> GetUserInfo(string userId, string accessCode)
@@ -28,9 +29,8 @@ namespace Food.Core.Authentication.External
                     ClientId = ProviderInfo.ClientId,
                     ClientSecret = ProviderInfo.ClientSecret
                 },
-                Scopes = new[] { "profile" }
+                Scopes = new[] { "profile" },
             });
-
 
             TokenResponse credential = await flow.ExchangeCodeForTokenAsync(userId, accessCode, "postmessage", CancellationToken.None);
             var idtokenpayload = await GoogleJsonWebSignature.ValidateAsync(credential.IdToken);

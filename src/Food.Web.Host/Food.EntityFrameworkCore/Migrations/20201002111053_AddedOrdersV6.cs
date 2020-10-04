@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Food.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class AddedOrdersV6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -444,6 +444,72 @@ namespace Food.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Basket",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TotalPrice = table.Column<decimal>(nullable: false),
+                    TotalDiscounts = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Basket", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderForm",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    PostCode = table.Column<string>(nullable: true),
+                    BuildingNumber = table.Column<string>(nullable: true),
+                    FlatNumber = table.Column<string>(nullable: true),
+                    GateAccessCode = table.Column<string>(nullable: true),
+                    Remarks = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderForm", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TransactionId = table.Column<string>(nullable: true),
+                    PaymentProvider = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AbpDynamicParameterValues",
                 columns: table => new
                 {
@@ -771,6 +837,95 @@ namespace Food.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FormId = table.Column<long>(nullable: true),
+                    PaymentId = table.Column<int>(nullable: true),
+                    BasketId = table.Column<int>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorUserId = table.Column<long>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierUserId = table.Column<long>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    DeleterUserId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Basket_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Basket",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_AbpUsers_CreatorUserId",
+                        column: x => x.CreatorUserId,
+                        principalTable: "AbpUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_AbpUsers_DeleterUserId",
+                        column: x => x.DeleterUserId,
+                        principalTable: "AbpUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_OrderForm_FormId",
+                        column: x => x.FormId,
+                        principalTable: "OrderForm",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_AbpUsers_LastModifierUserId",
+                        column: x => x.LastModifierUserId,
+                        principalTable: "AbpUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Payments_PaymentId",
+                        column: x => x.PaymentId,
+                        principalTable: "Payments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderBasketItem",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProductId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false),
+                    TotalDays = table.Column<int>(nullable: false),
+                    WeekendsIncluded = table.Column<bool>(nullable: false),
+                    PriceBought = table.Column<decimal>(nullable: false),
+                    DiscountApplied = table.Column<decimal>(nullable: false),
+                    BasketId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderBasketItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Basket_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Basket",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AbpEntityDynamicParameterValues",
                 columns: table => new
                 {
@@ -870,6 +1025,27 @@ namespace Food.Migrations
                         principalTable: "AbpRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DeliveryTime",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PreferableTimeDelivery = table.Column<DateTime>(nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    OrderBasketItemId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryTime", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DeliveryTime_OrderBasketItem_OrderBasketItemId",
+                        column: x => x.OrderBasketItemId,
+                        principalTable: "OrderBasketItem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -1214,6 +1390,51 @@ namespace Food.Migrations
                 name: "IX_AbpWebhookSendAttempts_WebhookEventId",
                 table: "AbpWebhookSendAttempts",
                 column: "WebhookEventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DeliveryTime_OrderBasketItemId",
+                table: "DeliveryTime",
+                column: "OrderBasketItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderBasketItem_BasketId",
+                table: "OrderBasketItem",
+                column: "BasketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderBasketItem_ProductId",
+                table: "OrderBasketItem",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_BasketId",
+                table: "Orders",
+                column: "BasketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CreatorUserId",
+                table: "Orders",
+                column: "CreatorUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_DeleterUserId",
+                table: "Orders",
+                column: "DeleterUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_FormId",
+                table: "Orders",
+                column: "FormId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_LastModifierUserId",
+                table: "Orders",
+                column: "LastModifierUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PaymentId",
+                table: "Orders",
+                column: "PaymentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1300,6 +1521,12 @@ namespace Food.Migrations
                 name: "AbpWebhookSubscriptions");
 
             migrationBuilder.DropTable(
+                name: "DeliveryTime");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "AbpEntityDynamicParameters");
 
             migrationBuilder.DropTable(
@@ -1315,6 +1542,15 @@ namespace Food.Migrations
                 name: "AbpWebhookEvents");
 
             migrationBuilder.DropTable(
+                name: "OrderBasketItem");
+
+            migrationBuilder.DropTable(
+                name: "OrderForm");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
                 name: "AbpDynamicParameters");
 
             migrationBuilder.DropTable(
@@ -1322,6 +1558,12 @@ namespace Food.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpUsers");
+
+            migrationBuilder.DropTable(
+                name: "Basket");
+
+            migrationBuilder.DropTable(
+                name: "Products");
         }
     }
 }

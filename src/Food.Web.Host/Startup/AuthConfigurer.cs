@@ -7,9 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Abp.Runtime.Security;
-using Food.Core.Authentication.External;
-using Microsoft.AspNetCore.Authentication.Facebook;
-using Microsoft.Extensions.Options;
 
 namespace Food.Web.Host.Startup
 {

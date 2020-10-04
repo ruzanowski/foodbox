@@ -15,7 +15,7 @@ namespace Food.Identity
             IOptions<SecurityStampValidatorOptions> options,
             SignInManager signInManager,
             ISystemClock systemClock,
-            ILoggerFactory loggerFactory) 
+            ILoggerFactory loggerFactory)
             : base(options, signInManager, systemClock, loggerFactory)
         {
         }
