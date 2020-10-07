@@ -10,6 +10,8 @@ namespace Food.Orders.Dto.OrderBasketItem
         public int ProductId { get; set; }
         public int Count { get; set; }
         public bool WeekendsIncluded { get; set; }
+        public int? CaloriesId { get; set; }
+        public int? CutleryFeeId { get; set; }
         public IEnumerable<CreateDeliveryTimeDto> DeliveryTimes { get; set; }
     }
 }

@@ -30,10 +30,24 @@ namespace Food.EntityFrameworkCore.Seed.Host
         {
             // Admin role for host
 
-            var adminRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
+            var adminRoleForHost = _context.Roles.IgnoreQueryFilters()
+                .FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
             if (adminRoleForHost == null)
             {
-                adminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true, IsDefault = true }).Entity;
+                adminRoleForHost = _context.Roles.Add(
+                    new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin)
+                    {
+                        IsStatic = true,
+                        IsDefault = false
+                    }).Entity;
+                _context.SaveChanges();
+
+                _context.Roles
+                    .Add(new Role(null, StaticRoleNames.Host.User, StaticRoleNames.Host.User)
+                    {
+                        IsStatic = true,
+                        IsDefault = true
+                    });
                 _context.SaveChanges();
             }
 
@@ -67,7 +81,8 @@ namespace Food.EntityFrameworkCore.Seed.Host
 
             // Admin user for host
 
-            var adminUserForHost = _context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == null && u.UserName == AbpUserBase.AdminUserName);
+            var adminUserForHost = _context.Users.IgnoreQueryFilters()
+                .FirstOrDefault(u => u.TenantId == null && u.UserName == AbpUserBase.AdminUserName);
             if (adminUserForHost == null)
             {
                 var user = new User
@@ -76,12 +91,14 @@ namespace Food.EntityFrameworkCore.Seed.Host
                     UserName = AbpUserBase.AdminUserName,
                     Name = "admin",
                     Surname = "admin",
-                    EmailAddress = "admin@aspnetboilerplate.com",
+                    EmailAddress = "admin@fitruna.pl",
                     IsEmailConfirmed = true,
                     IsActive = true
                 };
 
-                user.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(user, "123qwe");
+                user.Password =
+                    new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions()))
+                        .HashPassword(user, "fitruna_#!");
                 user.SetNormalizedNames();
 
                 adminUserForHost = _context.Users.Add(user).Entity;

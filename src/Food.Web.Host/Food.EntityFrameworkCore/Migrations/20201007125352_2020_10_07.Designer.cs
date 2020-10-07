@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Food.Migrations
 {
     [DbContext(typeof(FoodDbContext))]
-    [Migration("20201003161931_AddedOrdersV9")]
-    partial class AddedOrdersV9
+    [Migration("20201007125352_2020_10_07")]
+    partial class _2020_10_07
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1582,12 +1582,6 @@ namespace Food.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal>("TotalDiscounts")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric");
-
                     b.HasKey("Id");
 
                     b.ToTable("Basket");
@@ -1614,6 +1608,92 @@ namespace Food.Migrations
                     b.HasIndex("OrderBasketItemId");
 
                     b.ToTable("DeliveryTime");
+                });
+
+            modelBuilder.Entity("Food.Ordering.Dictionaries.Additionals", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TaxId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaxId");
+
+                    b.ToTable("Additionals");
+                });
+
+            modelBuilder.Entity("Food.Ordering.Dictionaries.Calories", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Calories");
+                });
+
+            modelBuilder.Entity("Food.Ordering.Dictionaries.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("MinimumDays")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Discounts");
+                });
+
+            modelBuilder.Entity("Food.Ordering.Dictionaries.Tax", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Taxes");
                 });
 
             modelBuilder.Entity("Food.Ordering.Order", b =>
@@ -1680,27 +1760,44 @@ namespace Food.Migrations
                     b.Property<int?>("BasketId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("CaloriesId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Count")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("DiscountApplied")
-                        .HasColumnType("numeric");
+                    b.Property<int?>("CutleryFeeId")
+                        .HasColumnType("integer");
 
-                    b.Property<decimal>("PriceBought")
-                        .HasColumnType("numeric");
+                    b.Property<int?>("CutleryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("DeliveryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("DiscountId1")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TotalDays")
-                        .HasColumnType("integer");
+                    b.Property<string>("Remarks")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("WeekendsIncluded")
+                    b.Property<bool?>("WeekendsIncluded")
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BasketId");
+
+                    b.HasIndex("CaloriesId");
+
+                    b.HasIndex("CutleryId");
+
+                    b.HasIndex("DeliveryId");
+
+                    b.HasIndex("DiscountId1");
 
                     b.HasIndex("ProductId");
 
@@ -1783,10 +1880,15 @@ namespace Food.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("PriceNet")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("TaxId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TaxId");
 
                     b.ToTable("Products");
                 });
@@ -2013,6 +2115,15 @@ namespace Food.Migrations
                         .HasForeignKey("OrderBasketItemId");
                 });
 
+            modelBuilder.Entity("Food.Ordering.Dictionaries.Additionals", b =>
+                {
+                    b.HasOne("Food.Ordering.Dictionaries.Tax", "Tax")
+                        .WithMany()
+                        .HasForeignKey("TaxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Food.Ordering.Order", b =>
                 {
                     b.HasOne("Food.Ordering.Basket", "Basket")
@@ -2046,9 +2157,34 @@ namespace Food.Migrations
                         .WithMany("Items")
                         .HasForeignKey("BasketId");
 
+                    b.HasOne("Food.Ordering.Dictionaries.Calories", "Calories")
+                        .WithMany()
+                        .HasForeignKey("CaloriesId");
+
+                    b.HasOne("Food.Ordering.Dictionaries.Additionals", "Cutlery")
+                        .WithMany()
+                        .HasForeignKey("CutleryId");
+
+                    b.HasOne("Food.Ordering.Dictionaries.Additionals", "Delivery")
+                        .WithMany()
+                        .HasForeignKey("DeliveryId");
+
+                    b.HasOne("Food.Ordering.Dictionaries.Discount", "Discount")
+                        .WithMany()
+                        .HasForeignKey("DiscountId1");
+
                     b.HasOne("Food.Ordering.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Food.Ordering.Product", b =>
+                {
+                    b.HasOne("Food.Ordering.Dictionaries.Tax", "Tax")
+                        .WithMany()
+                        .HasForeignKey("TaxId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

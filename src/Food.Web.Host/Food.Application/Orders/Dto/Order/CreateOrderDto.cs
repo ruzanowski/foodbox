@@ -1,7 +1,6 @@
 using Abp.AutoMapper;
 using Food.Orders.Dto.Basket;
 using Food.Orders.Dto.OrderForm;
-using Food.Payments.Dto;
 
 namespace Food.Orders.Dto.Order
 {

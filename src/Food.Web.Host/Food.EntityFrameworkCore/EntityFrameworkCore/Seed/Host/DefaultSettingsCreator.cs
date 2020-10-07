@@ -26,11 +26,11 @@ namespace Food.EntityFrameworkCore.Seed.Host
             }
 
             // Emailing
-            AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "admin@mydomain.com", tenantId);
-            AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "mydomain.com mailer", tenantId);
+            AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "zamowienia@fitruna.pl", tenantId);
+            AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "fitruna.pl mailer", tenantId);
 
             // Languages
-            AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "en", tenantId);
+            AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "pl", tenantId);
         }
 
         private void AddSettingIfNotExists(string name, string value, int? tenantId = null)

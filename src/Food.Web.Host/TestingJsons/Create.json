@@ -17,6 +17,8 @@
       {
         "productId": 1,
         "count": 1,
+        "caloriesId": 2,
+        "cutleryFeeId": null,
         "weekendsIncluded": true,
         "deliveryTimes": [
           {
@@ -43,7 +45,9 @@
       },
       {
         "productId": 2,
-        "count": 3,
+        "count": 2,
+        "caloriesId": 2,
+        "cutleryFeeId": 1,
         "weekendsIncluded": true,
         "deliveryTimes": [
           {
@@ -63,6 +67,8 @@
       {
         "productId": 2,
         "count": 1,
+        "caloriesId": 3,
+        "cutleryFeeId": null,
         "weekendsIncluded": false,
         "deliveryTimes": [
           {
@@ -75,13 +81,31 @@
           },
           {
             "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
-            "dateTime": "2020-10-05T14:51:27.736Z"
+            "dateTime": "2020-10-06T14:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-07T17:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-09T18:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-10T18:51:27.736Z"
+          },
+          {
+            "preferableTimeDelivery": "2020-10-02T14:51:27.736Z",
+            "dateTime": "2020-10-13T18:51:27.736Z"
           }
         ]
       },
       {
         "productId": 1,
-        "count": 10,
+        "count": 2,
+        "caloriesId": 3,
+        "cutleryFeeId": null,
         "weekendsIncluded": false,
         "deliveryTimes": [
           {

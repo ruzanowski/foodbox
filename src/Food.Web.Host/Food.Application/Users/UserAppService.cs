@@ -60,7 +60,6 @@ namespace Food.Users
 
             user.TenantId = null;
             user.IsEmailConfirmed = true;
-
             await _userManager.InitializeOptionsAsync(user.TenantId);
 
             CheckErrors(await _userManager.CreateAsync(user, input.Password));

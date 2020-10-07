@@ -5,7 +5,12 @@ using Abp.Dependency;
 using Abp.Domain.Uow;
 using Abp.EntityFrameworkCore.Uow;
 using Abp.MultiTenancy;
+using Food.EntityFrameworkCore.Seed.Additionals;
+using Food.EntityFrameworkCore.Seed.Calories;
 using Food.EntityFrameworkCore.Seed.Host;
+using Food.EntityFrameworkCore.Seed.Order;
+using Food.EntityFrameworkCore.Seed.Products;
+using Food.EntityFrameworkCore.Seed.Tax;
 using Food.EntityFrameworkCore.Seed.Tenants;
 
 namespace Food.EntityFrameworkCore.Seed
@@ -25,6 +30,11 @@ namespace Food.EntityFrameworkCore.Seed
             new InitialHostDbBuilder(context).Create();
 
             // Default tenant seed (in host database).
+            new DefaultTaxBuilder(context).Create();
+            new DefaultProductsBuilder(context).Create();
+            new DefaultAdditionalsBuilder(context).Create();
+            new DefaultCaloriesBuilder(context).Create();
+            new DefaultOrderBuilder(context).Create();
             new DefaultTenantBuilder(context).Create();
             new TenantRoleAndUserBuilder(context, 1).Create();
         }

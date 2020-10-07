@@ -5,39 +5,57 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
-using Abp.EntityFrameworkCore.Repositories;
-using Abp.EntityFrameworkCore.Uow;
 using Food.Authorization;
 using Food.Ordering;
+using Food.Ordering.Dictionaries;
 using Food.Orders.Dto.Order;
 using Microsoft.EntityFrameworkCore;
 
 namespace Food.Orders
 {
     [AbpAuthorize(PermissionNames.Pages_Orders)]
-    public class OrderAppService : AsyncCrudAppService<Order, OrderDto, int, PagedResultRequestDto, CreateOrderDto, OrderDto>, IOrderAppService
+    public class OrderAppService :
+        AsyncCrudAppService<Order, OrderDto, int, PagedResultRequestDto, CreateOrderDto, OrderDto>, IOrderAppService
     {
         private readonly IRepository<Payment> _paymentRepository;
+        private readonly IRepository<Ordering.Product> _productRepository;
+        private readonly IRepository<Ordering.Dictionaries.Additionals> _additionalsRepository;
+        private readonly IRepository<Ordering.Dictionaries.Calories> _caloriesRepository;
+        private readonly IRepository<Ordering.Dictionaries.Discount> _discountRepository;
 
         public OrderAppService(IRepository<Order> repository,
-            IRepository<Payment> paymentRepository) : base(repository)
+            IRepository<Payment> paymentRepository,
+            IRepository<Ordering.Product> productRepository,
+            IRepository<Ordering.Dictionaries.Additionals> additionalsRepository,
+            IRepository<Ordering.Dictionaries.Calories> caloriesRepository,
+            IRepository<Ordering.Dictionaries.Discount> discountRepository) : base(repository)
         {
             _paymentRepository = paymentRepository;
+            _productRepository = productRepository;
+            _additionalsRepository = additionalsRepository;
+            _caloriesRepository = caloriesRepository;
+            _discountRepository = discountRepository;
         }
 
-        protected override IQueryable<Order> CreateFilteredQuery(PagedResultRequestDto input)
+        public override async Task<OrderDto> CreateAsync(CreateOrderDto input)
         {
-            return Repository.GetAllIncluding(
-                    x => x.Form,
-                    x => x.Payment,
-                    x => x.Basket)
-                .Include(x => x.Basket)
-                    .ThenInclude(x => x.Items)
-                        .ThenInclude(x => x.DeliveryTimes)
-                .Include(x => x.Basket)
-                    .ThenInclude(x => x.Items)
-                        .ThenInclude(x => x.Product)
-                .AsNoTracking();
+            CheckCreatePermission();
+
+            await ValidateCreate(input);
+
+            var order = ObjectMapper.Map<Order>(input);
+
+            order = await Include(order);
+
+            var discount = GetDiscount(order.Basket);
+            var deliveryFee = GetDeliveryFee();
+
+            order.CalculateBasket(discount?.Id, deliveryFee?.Id);
+
+            //apply patch
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToEntityDto(order);
         }
 
         public override async Task<OrderDto> UpdateAsync(OrderDto input)
@@ -45,8 +63,7 @@ namespace Food.Orders
             CheckUpdatePermission();
 
             var order = await Repository
-                .GetAllIncluding()
-                .Include(x=>x.Form)
+                .GetAllIncluding(x => x.Form)
                 // .Include(x=>x.Payment)
                 // .Include(x=>x.Basket)
                 //     .ThenInclude(x=>x.Items)
@@ -65,18 +82,34 @@ namespace Food.Orders
             return await GetAsync(input);
         }
 
+        protected override IQueryable<Order> CreateFilteredQuery(PagedResultRequestDto input)
+        {
+            return Repository.GetAllIncluding(
+                    x => x.Form,
+                    x => x.Payment,
+                    x => x.Basket)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.DeliveryTimes)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Tax)
+                .AsNoTracking();
+        }
+
         protected override async Task<Order> GetEntityByIdAsync(int id)
         {
             var order = await Repository
                 .GetAll()
-                .Include(x=>x.Form)
-                .Include(x=>x.Payment)
-                .Include(x=>x.Basket)
-                    .ThenInclude(x=>x.Items)
-                        .ThenInclude(x=>x.DeliveryTimes)
+                .Include(x => x.Form)
+                .Include(x => x.Payment)
                 .Include(x => x.Basket)
-                    .ThenInclude(x => x.Items)
-                        .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.DeliveryTimes)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Product)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -110,6 +143,99 @@ namespace Food.Orders
 
             await CurrentUnitOfWork.SaveChangesAsync();
         }
+
+        private async Task ValidateCreate(CreateOrderDto input)
+        {
+            foreach (var item in input.Basket.Items)
+            {
+                var product = await _productRepository
+                    .GetAllIncluding(x => x.Tax)
+                    .FirstOrDefaultAsync(x => x.Id == item.ProductId);
+
+                if (product == null)
+                {
+                    throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Tax), item.ProductId);
+                }
+
+                if (item.CutleryFeeId != null)
+                {
+                    var cutlery = await _additionalsRepository
+                        .GetAllIncluding(x => x.Tax)
+                        .Where(x => x.Type == AdditionalsType.Cutlery)
+                        .FirstOrDefaultAsync(x => x.Id == item.CutleryFeeId);
+
+                    if (cutlery == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Additionals), item.CutleryFeeId);
+                    }
+                }
+
+                if (item.CaloriesId != null)
+                {
+                    var cutlery = await _caloriesRepository
+                        .FirstOrDefaultAsync(x => x.Id == item.CaloriesId);
+
+                    if (cutlery == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Additionals), item.CaloriesId);
+                    }
+                }
+            }
+        }
+
+        private async Task<Order> Include(Order order)
+        {
+            foreach (var item in order.Basket.Items)
+            {
+                var product = await _productRepository
+                    .GetAllIncluding(x => x.Tax)
+                    .FirstOrDefaultAsync(x => x.Id == item.ProductId);
+
+                item.Product ??= product;
+
+                if (item.CutleryFeeId != null)
+                {
+                    var cutlery = await _additionalsRepository
+                        .GetAllIncluding(x => x.Tax)
+                        .Where(x => x.Type == AdditionalsType.Cutlery)
+                        .FirstOrDefaultAsync(x => x.Id == item.CutleryFeeId);
+
+                    item.Cutlery ??= cutlery;
+                }
+
+                if (item.CaloriesId != null)
+                {
+                    var calories = await _caloriesRepository
+                        .FirstOrDefaultAsync(x => x.Id == item.CaloriesId);
+
+                    if (calories == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Additionals), item.CaloriesId);
+                    }
+
+                    item.Calories ??= calories;
+                }
+            }
+
+            return order;
+        }
+
+        private Ordering.Dictionaries.Discount GetDiscount(Basket basket)
+        {
+            var cumulativeDays = basket.Items.Sum(orderBasketItem => orderBasketItem.DeliveryTimes.Count());
+            var discount = _discountRepository
+                .GetAllIncluding()
+                .ToList()
+                .Where(x => x.MinimumDays < cumulativeDays)
+                .OrderByDescending(x => x.MinimumDays)
+                .FirstOrDefault();
+
+            return discount;
+        }
+
+        private Ordering.Dictionaries.Additionals GetDeliveryFee()
+        {
+            return _additionalsRepository.GetAllIncluding().ToList().Last(x => x.Type == AdditionalsType.Delivery);
+        }
     }
 }
-

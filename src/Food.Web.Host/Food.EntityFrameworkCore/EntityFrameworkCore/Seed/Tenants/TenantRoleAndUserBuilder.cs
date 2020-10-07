@@ -72,8 +72,10 @@ namespace Food.EntityFrameworkCore.Seed.Tenants
             var adminUser = _context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == _tenantId && u.UserName == AbpUserBase.AdminUserName);
             if (adminUser == null)
             {
-                adminUser = User.CreateTenantAdminUser(_tenantId, "admin@defaulttenant.com");
-                adminUser.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(adminUser, "123qwe");
+                adminUser = User.CreateTenantAdminUser(_tenantId, "admin@fitruna.pl");
+                adminUser.Password = new PasswordHasher<User>(
+                        new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions()))
+                    .HashPassword(adminUser, "[@]54-36[%]31-53[^]83-25");
                 adminUser.IsEmailConfirmed = true;
                 adminUser.IsActive = true;
 

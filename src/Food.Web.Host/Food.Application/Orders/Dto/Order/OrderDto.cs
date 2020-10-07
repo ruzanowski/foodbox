@@ -4,7 +4,6 @@ using Abp.AutoMapper;
 using Food.Orders.Dto.Basket;
 using Food.Orders.Dto.OrderForm;
 using Food.Payments.Dto;
-using Newtonsoft.Json;
 
 namespace Food.Orders.Dto.Order
 {

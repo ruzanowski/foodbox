@@ -1,5 +1,6 @@
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
+using Food.Tax.Dto;
 
 namespace Food.Product.Dto
 {
@@ -8,6 +9,8 @@ namespace Food.Product.Dto
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
+        public decimal PriceNet { get; set; }
+        public decimal PriceGross { get; set; }
+        public TaxDto Tax { get; set; }
     }
 }

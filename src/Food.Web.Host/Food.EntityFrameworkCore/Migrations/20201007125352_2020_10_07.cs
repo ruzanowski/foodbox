@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Food.Migrations
 {
-    public partial class AddedOrdersV6 : Migration
+    public partial class _2020_10_07 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -448,13 +448,40 @@ namespace Food.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TotalPrice = table.Column<decimal>(nullable: false),
-                    TotalDiscounts = table.Column<decimal>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Basket", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Calories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Value = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Calories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Discounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Value = table.Column<decimal>(nullable: false),
+                    MinimumDays = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Discounts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -495,18 +522,17 @@ namespace Food.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Taxes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false)
+                    Value = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Taxes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -895,32 +921,46 @@ namespace Food.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderBasketItem",
+                name: "Additionals",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProductId = table.Column<int>(nullable: false),
-                    Count = table.Column<int>(nullable: false),
-                    TotalDays = table.Column<int>(nullable: false),
-                    WeekendsIncluded = table.Column<bool>(nullable: false),
-                    PriceBought = table.Column<decimal>(nullable: false),
-                    DiscountApplied = table.Column<decimal>(nullable: false),
-                    BasketId = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Value = table.Column<decimal>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    TaxId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderBasketItem", x => x.Id);
+                    table.PrimaryKey("PK_Additionals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderBasketItem_Basket_BasketId",
-                        column: x => x.BasketId,
-                        principalTable: "Basket",
+                        name: "FK_Additionals_Taxes_TaxId",
+                        column: x => x.TaxId,
+                        principalTable: "Taxes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    PriceNet = table.Column<decimal>(nullable: false),
+                    TaxId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderBasketItem_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
+                        name: "FK_Products_Taxes_TaxId",
+                        column: x => x.TaxId,
+                        principalTable: "Taxes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1028,6 +1068,64 @@ namespace Food.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderBasketItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProductId = table.Column<int>(nullable: false),
+                    CaloriesId = table.Column<int>(nullable: true),
+                    CutleryFeeId = table.Column<int>(nullable: true),
+                    DiscountId1 = table.Column<int>(nullable: true),
+                    CutleryId = table.Column<int>(nullable: true),
+                    DeliveryId = table.Column<int>(nullable: true),
+                    Count = table.Column<int>(nullable: false),
+                    WeekendsIncluded = table.Column<bool>(nullable: true),
+                    Remarks = table.Column<string>(nullable: true),
+                    BasketId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderBasketItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Basket_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Basket",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Calories_CaloriesId",
+                        column: x => x.CaloriesId,
+                        principalTable: "Calories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Additionals_CutleryId",
+                        column: x => x.CutleryId,
+                        principalTable: "Additionals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Additionals_DeliveryId",
+                        column: x => x.DeliveryId,
+                        principalTable: "Additionals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Discounts_DiscountId1",
+                        column: x => x.DiscountId1,
+                        principalTable: "Discounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderBasketItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DeliveryTime",
                 columns: table => new
                 {
@@ -1035,7 +1133,7 @@ namespace Food.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PreferableTimeDelivery = table.Column<DateTime>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
-                    OrderBasketItemId = table.Column<long>(nullable: true)
+                    OrderBasketItemId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1392,6 +1490,11 @@ namespace Food.Migrations
                 column: "WebhookEventId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Additionals_TaxId",
+                table: "Additionals",
+                column: "TaxId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DeliveryTime_OrderBasketItemId",
                 table: "DeliveryTime",
                 column: "OrderBasketItemId");
@@ -1400,6 +1503,26 @@ namespace Food.Migrations
                 name: "IX_OrderBasketItem_BasketId",
                 table: "OrderBasketItem",
                 column: "BasketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderBasketItem_CaloriesId",
+                table: "OrderBasketItem",
+                column: "CaloriesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderBasketItem_CutleryId",
+                table: "OrderBasketItem",
+                column: "CutleryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderBasketItem_DeliveryId",
+                table: "OrderBasketItem",
+                column: "DeliveryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderBasketItem_DiscountId1",
+                table: "OrderBasketItem",
+                column: "DiscountId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderBasketItem_ProductId",
@@ -1435,6 +1558,11 @@ namespace Food.Migrations
                 name: "IX_Orders_PaymentId",
                 table: "Orders",
                 column: "PaymentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_TaxId",
+                table: "Products",
+                column: "TaxId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1563,7 +1691,19 @@ namespace Food.Migrations
                 name: "Basket");
 
             migrationBuilder.DropTable(
+                name: "Calories");
+
+            migrationBuilder.DropTable(
+                name: "Additionals");
+
+            migrationBuilder.DropTable(
+                name: "Discounts");
+
+            migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Taxes");
         }
     }
 }

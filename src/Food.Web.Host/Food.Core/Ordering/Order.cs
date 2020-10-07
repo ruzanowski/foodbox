@@ -1,5 +1,5 @@
 using System;
-using System.Text.RegularExpressions;
+using System.Linq;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Food.Authorization.Users;
@@ -23,5 +23,13 @@ namespace Food.Ordering
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
         public User DeleterUser { get; set; }
+
+        public void CalculateBasket(int? discountId, int? deliveryId)
+        {
+            foreach (var orderBasketItem in Basket.Items)
+            {
+                orderBasketItem.CalculatePrices(deliveryId, discountId);
+            }
+        }
     }
 }

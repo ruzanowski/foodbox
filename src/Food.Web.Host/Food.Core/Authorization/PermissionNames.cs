@@ -13,5 +13,13 @@
         public const string Pages_Payments = "Pages.Payments";
 
         public const string Pages_Products = "Pages.Products";
+
+        public const string Pages_Discounts = "Pages.Discounts";
+
+        public const string Pages_Taxes = "Pages.Taxes";
+
+        public const string Pages_Calories = "Pages.Calories";
+
+        public const string Pages_Additionals = "Pages.Additionals";
     }
 }
