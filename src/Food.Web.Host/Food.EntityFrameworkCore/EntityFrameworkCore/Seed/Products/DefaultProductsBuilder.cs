@@ -43,6 +43,7 @@ namespace Food.EntityFrameworkCore.Seed.Products
                 {
                     Name = "Zestaw Standard",
                     Description = "Zbilansowana dieta, zawierająca w menu składniki pochodzenia zwierzęcego.",
+                    ImagePath = "assets/img/breakfast.png",
                     PriceNet = 43,
                     TaxId = 2
                 },
@@ -50,6 +51,7 @@ namespace Food.EntityFrameworkCore.Seed.Products
                 {
                     Name = "Zestaw Vege",
                     Description = "Zbilansowana dieta bezmięsna.",
+                    ImagePath = "assets/img/avocado-flat.png",
                     PriceNet = 45,
                     TaxId = 2
                 },
@@ -57,6 +59,7 @@ namespace Food.EntityFrameworkCore.Seed.Products
                 {
                     Name = "Zestaw Sport",
                     Description = "Dla osób trenujących, dieta o wysokiej zawartości białka.",
+                    ImagePath = "assets/img/meat-flat.png",
                     PriceNet = 50,
                     TaxId = 2
                 },
@@ -64,6 +67,7 @@ namespace Food.EntityFrameworkCore.Seed.Products
                 {
                     Name = "Zestaw Vegan",
                     Description = "Zbilansowana dieta wegańska.",
+                    ImagePath = "assets/img/carrot.png",
                     PriceNet = 52,
                     TaxId = 2
                 },

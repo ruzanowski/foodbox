@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Food.Migrations
 {
     [DbContext(typeof(FoodDbContext))]
-    [Migration("20201007125352_2020_10_07")]
-    partial class _2020_10_07
+    [Migration("20201008182528_AddedBoughtPropertiesToOrder")]
+    partial class AddedBoughtPropertiesToOrder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1769,20 +1769,44 @@ namespace Food.Migrations
                     b.Property<int?>("CutleryFeeId")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("CutleryFeeTaxPercentBought")
+                        .HasColumnType("numeric");
+
                     b.Property<int?>("CutleryId")
                         .HasColumnType("integer");
+
+                    b.Property<decimal>("CutleryNetFeeBought")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("DeliveryFeeId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("DeliveryFeeTaxPercentBought")
+                        .HasColumnType("numeric");
 
                     b.Property<int?>("DeliveryId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("DiscountId1")
+                    b.Property<decimal>("DeliveryNetFeeBought")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("DiscountId")
                         .HasColumnType("integer");
+
+                    b.Property<decimal>("DiscountPercentBought")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("PriceNetBought")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Remarks")
                         .HasColumnType("text");
+
+                    b.Property<decimal>("TaxProductPercentBought")
+                        .HasColumnType("numeric");
 
                     b.Property<bool?>("WeekendsIncluded")
                         .HasColumnType("boolean");
@@ -1797,7 +1821,7 @@ namespace Food.Migrations
 
                     b.HasIndex("DeliveryId");
 
-                    b.HasIndex("DiscountId1");
+                    b.HasIndex("DiscountId");
 
                     b.HasIndex("ProductId");
 
@@ -1875,6 +1899,9 @@ namespace Food.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagePath")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -2171,7 +2198,7 @@ namespace Food.Migrations
 
                     b.HasOne("Food.Ordering.Dictionaries.Discount", "Discount")
                         .WithMany()
-                        .HasForeignKey("DiscountId1");
+                        .HasForeignKey("DiscountId");
 
                     b.HasOne("Food.Ordering.Product", "Product")
                         .WithMany()

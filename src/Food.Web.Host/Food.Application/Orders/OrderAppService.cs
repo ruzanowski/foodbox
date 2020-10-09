@@ -45,14 +45,18 @@ namespace Food.Orders
 
             var order = ObjectMapper.Map<Order>(input);
 
-            order = await Include(order);
+            order = await PreInclude(order);
 
             var discount = GetDiscount(order.Basket);
             var deliveryFee = GetDeliveryFee();
 
+            order.Set(discount?.Id, deliveryFee?.Id);
+
+            order = await PostInclude(order);
+
             order.CalculateBasket(discount?.Id, deliveryFee?.Id);
 
-            //apply patch
+            await Repository.InsertAsync(order);
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return MapToEntityDto(order);
@@ -77,6 +81,7 @@ namespace Food.Orders
 
             MapToEntity(input, order);
 
+            await Repository.InsertOrUpdateAndGetIdAsync(order);
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return await GetAsync(input);
@@ -84,10 +89,41 @@ namespace Food.Orders
 
         protected override IQueryable<Order> CreateFilteredQuery(PagedResultRequestDto input)
         {
-            return Repository.GetAllIncluding(
+            return Repository
+                .GetAllIncluding(
                     x => x.Form,
                     x => x.Payment,
                     x => x.Basket)
+                .Include(x => x.Basket)
+                    .ThenInclude(x => x.Items)
+                        .ThenInclude(x => x.DeliveryTimes)
+                .Include(x => x.Basket)
+                    .ThenInclude(x => x.Items)
+                        .ThenInclude(x => x.Product)
+                            .ThenInclude(x => x.Tax)
+                .Include(x => x.Basket)
+                    .ThenInclude(x => x.Items)
+                        .ThenInclude(x => x.Cutlery)
+                            .ThenInclude(x=>x.Tax)
+                .Include(x => x.Basket)
+                    .ThenInclude(x => x.Items)
+                        .ThenInclude(x => x.Delivery)
+                            .ThenInclude(x=>x.Tax)
+                .Include(x => x.Basket)
+                    .ThenInclude(x => x.Items)
+                        .ThenInclude(x => x.Discount)
+                .Include(x => x.Basket)
+                    .ThenInclude(x => x.Items)
+                        .ThenInclude(x => x.Calories)
+                .AsNoTracking();
+        }
+
+        protected override async Task<Order> GetEntityByIdAsync(int id)
+        {
+            var order = await Repository
+                .GetAllIncluding(
+                    x => x.Form,
+                    x => x.Payment)
                 .Include(x => x.Basket)
                 .ThenInclude(x => x.Items)
                 .ThenInclude(x => x.DeliveryTimes)
@@ -95,21 +131,20 @@ namespace Food.Orders
                 .ThenInclude(x => x.Items)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Tax)
-                .AsNoTracking();
-        }
-
-        protected override async Task<Order> GetEntityByIdAsync(int id)
-        {
-            var order = await Repository
-                .GetAll()
-                .Include(x => x.Form)
-                .Include(x => x.Payment)
                 .Include(x => x.Basket)
                 .ThenInclude(x => x.Items)
-                .ThenInclude(x => x.DeliveryTimes)
+                .ThenInclude(x => x.Cutlery)
+                .ThenInclude(x=>x.Tax)
                 .Include(x => x.Basket)
                 .ThenInclude(x => x.Items)
-                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Delivery)
+                .ThenInclude(x=>x.Tax)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Discount)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Calories)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -183,7 +218,7 @@ namespace Food.Orders
             }
         }
 
-        private async Task<Order> Include(Order order)
+        private async Task<Order> PreInclude(Order order)
         {
             foreach (var item in order.Basket.Items)
             {
@@ -197,8 +232,12 @@ namespace Food.Orders
                 {
                     var cutlery = await _additionalsRepository
                         .GetAllIncluding(x => x.Tax)
-                        .Where(x => x.Type == AdditionalsType.Cutlery)
                         .FirstOrDefaultAsync(x => x.Id == item.CutleryFeeId);
+
+                    if (cutlery == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Additionals), item.CutleryFeeId);
+                    }
 
                     item.Cutlery ??= cutlery;
                 }
@@ -220,12 +259,49 @@ namespace Food.Orders
             return order;
         }
 
+        private async Task<Order> PostInclude(Order order)
+        {
+            foreach (var item in order.Basket.Items)
+            {
+                if (item.DiscountId != null)
+                {
+                    var discount = await _discountRepository
+                        .FirstOrDefaultAsync(x => x.Id == item.DiscountId);
+
+                    if (discount == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Discount), item.DiscountId);
+                    }
+
+                    item.Discount ??= discount;
+                }
+
+                if (item.DeliveryFeeId != null)
+                {
+                    var delivery = await _additionalsRepository
+                        .GetAllIncluding(x=>x.Tax)
+                        .FirstOrDefaultAsync(x => x.Id == item.DeliveryFeeId);
+
+                    if (delivery == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Discount), item.DeliveryFeeId);
+                    }
+
+                    item.Delivery ??= delivery;
+                }
+            }
+
+            return order;
+        }
+
         private Ordering.Dictionaries.Discount GetDiscount(Basket basket)
         {
             var cumulativeDays = basket.Items.Sum(orderBasketItem => orderBasketItem.DeliveryTimes.Count());
-            var discount = _discountRepository
+            var discounts = _discountRepository
                 .GetAllIncluding()
-                .ToList()
+                .ToList();
+
+            var discount = discounts
                 .Where(x => x.MinimumDays < cumulativeDays)
                 .OrderByDescending(x => x.MinimumDays)
                 .FirstOrDefault();

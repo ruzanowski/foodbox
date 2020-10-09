@@ -8,14 +8,14 @@ namespace Food.Ordering.Dictionaries
         public decimal Value { get; set; }
         public string Description { get; set; }
         public AdditionalsType Type { get; set; }
-
+        public decimal ValueGross => Value * (1 + Tax.Value);
         public int TaxId { get; set; }
         public Tax Tax { get; set; }
     }
 
     public enum AdditionalsType
     {
-        Cutlery,
-        Delivery
+        Cutlery = 0,
+        Delivery = 1
     }
 }

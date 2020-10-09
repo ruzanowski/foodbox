@@ -9,7 +9,7 @@ namespace Food.Ordering
         public string Description { get; set; }
         public decimal PriceNet { get; set; }
         public decimal PriceGross => PriceNet * (1 + Tax.Value);
-
+        public string ImagePath { get; set; }
         public int TaxId { get; set; }
         public Tax Tax { get; set; }
     }

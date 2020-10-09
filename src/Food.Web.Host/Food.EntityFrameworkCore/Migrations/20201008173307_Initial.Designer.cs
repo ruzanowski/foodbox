@@ -3,15 +3,17 @@ using System;
 using Food.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Food.Migrations
 {
     [DbContext(typeof(FoodDbContext))]
-    partial class FoodDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201008173307_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1767,44 +1769,23 @@ namespace Food.Migrations
                     b.Property<int?>("CutleryFeeId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("CutleryFeeTaxPercentBought")
-                        .HasColumnType("numeric");
-
                     b.Property<int?>("CutleryId")
                         .HasColumnType("integer");
-
-                    b.Property<decimal>("CutleryNetFeeBought")
-                        .HasColumnType("numeric");
 
                     b.Property<int?>("DeliveryFeeId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("DeliveryFeeTaxPercentBought")
-                        .HasColumnType("numeric");
-
                     b.Property<int?>("DeliveryId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("DeliveryNetFeeBought")
-                        .HasColumnType("numeric");
-
                     b.Property<int?>("DiscountId")
                         .HasColumnType("integer");
-
-                    b.Property<decimal>("DiscountPercentBought")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("PriceNetBought")
-                        .HasColumnType("numeric");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Remarks")
                         .HasColumnType("text");
-
-                    b.Property<decimal>("TaxProductPercentBought")
-                        .HasColumnType("numeric");
 
                     b.Property<bool?>("WeekendsIncluded")
                         .HasColumnType("boolean");

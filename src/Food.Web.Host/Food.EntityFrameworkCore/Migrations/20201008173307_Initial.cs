@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Food.Migrations
 {
-    public partial class _2020_10_07 : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -952,6 +952,7 @@ namespace Food.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     PriceNet = table.Column<decimal>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
                     TaxId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -1076,7 +1077,8 @@ namespace Food.Migrations
                     ProductId = table.Column<int>(nullable: false),
                     CaloriesId = table.Column<int>(nullable: true),
                     CutleryFeeId = table.Column<int>(nullable: true),
-                    DiscountId1 = table.Column<int>(nullable: true),
+                    DiscountId = table.Column<int>(nullable: true),
+                    DeliveryFeeId = table.Column<int>(nullable: true),
                     CutleryId = table.Column<int>(nullable: true),
                     DeliveryId = table.Column<int>(nullable: true),
                     Count = table.Column<int>(nullable: false),
@@ -1112,8 +1114,8 @@ namespace Food.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderBasketItem_Discounts_DiscountId1",
-                        column: x => x.DiscountId1,
+                        name: "FK_OrderBasketItem_Discounts_DiscountId",
+                        column: x => x.DiscountId,
                         principalTable: "Discounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -1520,9 +1522,9 @@ namespace Food.Migrations
                 column: "DeliveryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderBasketItem_DiscountId1",
+                name: "IX_OrderBasketItem_DiscountId",
                 table: "OrderBasketItem",
-                column: "DiscountId1");
+                column: "DiscountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderBasketItem_ProductId",

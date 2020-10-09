@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Abp.Domain.Entities;
 using Food.Ordering.Dictionaries;
 
@@ -9,19 +10,19 @@ namespace Food.Ordering
         public int ProductId { get; set; }
         public int? CaloriesId { get; set; }
         public int? CutleryFeeId { get; set; }
-        private int? DiscountId { get; set; }
-        private int? DeliveryFeeId { get; set; }
+        public int? DiscountId { get; set; }
+        public int? DeliveryFeeId { get; set; }
 
         #region prices
 
         // Static Prices
-        private decimal TaxProductPercentBought { get; set; }
-        private decimal PriceNetBought { get; set; }
-        private decimal DiscountPercentBought { get; set; }
-        private decimal CutleryNetFeeBought { get; set; }
-        private decimal CutleryFeeTaxPercentBought { get; set; }
-        private decimal DeliveryNetFeeBought { get; set; }
-        private decimal DeliveryFeeTaxPercentBought { get; set; }
+        public decimal TaxProductPercentBought { get; private set; }
+        public decimal PriceNetBought { get;  private set; }
+        public decimal DiscountPercentBought { get;  private set; }
+        public decimal CutleryNetFeeBought { get; private set; }
+        public decimal CutleryFeeTaxPercentBought { get;  private set; }
+        public decimal DeliveryNetFeeBought { get; private set; }
+        public decimal DeliveryFeeTaxPercentBought { get; private set; }
 
         // Calculated Prices
         public decimal PriceDiscountAppliedBought => PriceGrossBought * DiscountPercentBought;
@@ -29,7 +30,8 @@ namespace Food.Ordering
         public decimal DeliveryFeeGrossBought => DeliveryNetFeeBought * (1 + DeliveryFeeTaxPercentBought);
         public decimal CutleryFeeGrossFeeBought => CutleryNetFeeBought * (1 + CutleryFeeTaxPercentBought);
         public decimal TotalPriceBought =>
-            PriceGrossBought * (1 + DiscountPercentBought)
+            PriceGrossBought
+            * (1 + DiscountPercentBought)
             + DeliveryFeeGrossBought
             + CutleryFeeGrossFeeBought;
 
@@ -47,14 +49,18 @@ namespace Food.Ordering
         public string Remarks { get; set; }
         public IEnumerable<DeliveryTime> DeliveryTimes { get; set; }
 
-        public void CalculatePrices(
-            int? deliveryFeeId,
+        public void SetValues(int? deliveryFeeId,
             int? discountFeeId)
         {
             DeliveryFeeId = deliveryFeeId;
             DiscountId = discountFeeId;
+        }
 
-            PriceNetBought = Product.PriceNet;
+        public void CalculatePrices(
+            int? deliveryFeeId,
+            int? discountFeeId)
+        {
+            PriceNetBought = Product.PriceNet * Count * DeliveryTimes.Count();
             TaxProductPercentBought = Product.Tax.Value;
 
             DiscountPercentBought = Discount?.Value ?? 0;
