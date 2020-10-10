@@ -2,8 +2,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
+using Food.Authorization;
 using Food.Ordering;
 using Food.Product.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,7 @@ namespace Food.Product
             _taxRepository = taxRepository;
         }
 
+        [AbpAuthorize(PermissionNames.Pages_Products)]
         public override async Task<ProductDto> CreateAsync(CreateProductDto input)
         {
             CheckCreatePermission();
@@ -37,6 +40,18 @@ namespace Food.Product
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return MapToEntityDto(order);
+        }
+
+        [AbpAuthorize(PermissionNames.Pages_Products)]
+        public override Task DeleteAsync(EntityDto<int> input)
+        {
+            return base.DeleteAsync(input);
+        }
+
+        [AbpAuthorize(PermissionNames.Pages_Products)]
+        public override Task<ProductDto> UpdateAsync(ProductDto input)
+        {
+            return base.UpdateAsync(input);
         }
 
         protected override IQueryable<Ordering.Product> CreateFilteredQuery(PagedResultRequestDto input)

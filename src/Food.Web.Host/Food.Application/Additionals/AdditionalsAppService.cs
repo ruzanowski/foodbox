@@ -11,12 +11,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Food.Additionals
 {
-    [AbpAuthorize(PermissionNames.Pages_Additionals)]
     public class AdditionalsAppService :
         AsyncCrudAppService<Ordering.Dictionaries.Additionals, AdditionalsDto, int, PagedResultRequestDto, CreateAdditionalsDto, AdditionalsDto>, IAdditionalsAppService
     {
         public AdditionalsAppService(IRepository<Ordering.Dictionaries.Additionals, int> repository) : base(repository)
         {
+        }
+
+        [AbpAuthorize(PermissionNames.Pages_Additionals)]
+        public override Task<AdditionalsDto> CreateAsync(CreateAdditionalsDto input)
+        {
+            return base.CreateAsync(input);
+        }
+
+        [AbpAuthorize(PermissionNames.Pages_Additionals)]
+        public override Task DeleteAsync(EntityDto<int> input)
+        {
+            return base.DeleteAsync(input);
+        }
+
+        [AbpAuthorize(PermissionNames.Pages_Additionals)]
+        public override Task<AdditionalsDto> UpdateAsync(AdditionalsDto input)
+        {
+            return base.UpdateAsync(input);
         }
 
         protected override IQueryable<Ordering.Dictionaries.Additionals> CreateFilteredQuery(PagedResultRequestDto input)
