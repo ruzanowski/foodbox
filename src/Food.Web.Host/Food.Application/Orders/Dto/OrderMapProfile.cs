@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Food.Additionals.Dto;
+using Food.Calories.Dto;
 using Food.Discount.Dto;
 using Food.Ordering;
 using Food.Orders.Dto.Basket;
@@ -49,6 +50,9 @@ namespace Food.Orders.Dto
 
             CreateMap<AdditionalsDto, Ordering.Dictionaries.Additionals>();
             CreateMap<CreateAdditionalsDto, Ordering.Dictionaries.Additionals>();
+
+            CreateMap<CaloriesDto, Ordering.Dictionaries.Calories>();
+            CreateMap<CreateCaloriesDto, Ordering.Dictionaries.Calories>();
         }
     }
 }

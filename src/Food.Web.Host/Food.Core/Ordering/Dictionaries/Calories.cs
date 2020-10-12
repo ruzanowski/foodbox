@@ -6,5 +6,6 @@ namespace Food.Ordering.Dictionaries
     {
         public string Name { get; set; }
         public decimal Value { get; set; }
+        public decimal AdditionToPrice { get; set; }
     }
 }

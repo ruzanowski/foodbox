@@ -42,21 +42,25 @@ namespace Food.EntityFrameworkCore.Seed.Calories
                 {
                     Name = "1500 kcal",
                     Value = 1500,
+                    AdditionToPrice = 0
                 },
                 new Ordering.Dictionaries.Calories
                 {
                     Name = "2000 kcal",
                     Value = 2000,
+                    AdditionToPrice = 3
                 },
                 new Ordering.Dictionaries.Calories
                 {
                     Name = "2500 kcal",
                     Value = 2500,
+                    AdditionToPrice = 5
                 },
                 new Ordering.Dictionaries.Calories
                 {
                     Name = "3000 kcal",
                     Value = 3000,
+                    AdditionToPrice = 7
                 },
             };
         }

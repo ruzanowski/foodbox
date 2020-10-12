@@ -19,6 +19,9 @@ namespace Food.Ordering
         public decimal TaxProductPercentBought { get; private set; }
         public decimal PriceNetBought { get;  private set; }
         public decimal DiscountPercentBought { get;  private set; }
+        public decimal CountBought { get;  private set; }
+        public decimal CaloriesAdditionalPriceBought { get;  private set; }
+        public decimal DeliveryTimesCountBought { get; private set; }
         public decimal CutleryNetFeeBought { get; private set; }
         public decimal CutleryFeeTaxPercentBought { get;  private set; }
         public decimal DeliveryNetFeeBought { get; private set; }
@@ -27,11 +30,15 @@ namespace Food.Ordering
         // Calculated Prices
         public decimal PriceDiscountAppliedBought => PriceGrossBought * DiscountPercentBought;
         public decimal PriceGrossBought => PriceNetBought * (1 + TaxProductPercentBought);
-        public decimal DeliveryFeeGrossBought => DeliveryNetFeeBought * (1 + DeliveryFeeTaxPercentBought);
-        public decimal CutleryFeeGrossFeeBought => CutleryNetFeeBought * (1 + CutleryFeeTaxPercentBought);
+        public decimal DeliveryFeeGrossBought => DeliveryNetFeeBought * (1 + DeliveryFeeTaxPercentBought)
+                                                                      * CountBought
+                                                                      * DeliveryTimesCountBought;
+        public decimal CutleryFeeGrossFeeBought => CutleryNetFeeBought
+                                                   * (1 + CutleryFeeTaxPercentBought)
+                                                   * CountBought
+                                                   * DeliveryTimesCountBought;
         public decimal TotalPriceBought =>
             PriceGrossBought
-            * (1 + DiscountPercentBought)
             + DeliveryFeeGrossBought
             + CutleryFeeGrossFeeBought;
 
@@ -60,9 +67,6 @@ namespace Food.Ordering
             int? deliveryFeeId,
             int? discountFeeId)
         {
-            PriceNetBought = Product.PriceNet * Count * DeliveryTimes.Count();
-            TaxProductPercentBought = Product.Tax.Value;
-
             DiscountPercentBought = Discount?.Value ?? 0;
 
             DeliveryNetFeeBought = Delivery?.Value ?? 0;
@@ -70,6 +74,17 @@ namespace Food.Ordering
 
             CutleryNetFeeBought = Cutlery?.Value ?? 0;
             CutleryFeeTaxPercentBought = Cutlery?.Tax.Value ?? 0;
+
+            PriceNetBought = NetPrice();
+            CaloriesAdditionalPriceBought = Calories.AdditionToPrice;
+            CountBought = Count;
+            DeliveryTimesCountBought = DeliveryTimes.Count();
+            TaxProductPercentBought = Product.Tax.Value;
         }
+
+        private decimal NetPrice() => (Product.PriceNet + Calories.AdditionToPrice)
+                                      * (1 - DiscountPercentBought)
+                                      * Count
+                                      * DeliveryTimes.Count();
     }
 }

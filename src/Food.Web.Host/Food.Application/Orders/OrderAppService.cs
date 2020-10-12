@@ -67,11 +67,31 @@ namespace Food.Orders
             CheckUpdatePermission();
 
             var order = await Repository
-                .GetAllIncluding(x => x.Form)
-                // .Include(x=>x.Payment)
-                // .Include(x=>x.Basket)
-                //     .ThenInclude(x=>x.Items)
-                //         .ThenInclude(x=>x.DeliveryTimes)
+                .GetAllIncluding(
+                    x => x.Form,
+                    x => x.Payment,
+                    x => x.Basket)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.DeliveryTimes)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Tax)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Cutlery)
+                .ThenInclude(x=>x.Tax)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Delivery)
+                .ThenInclude(x=>x.Tax)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Discount)
+                .Include(x => x.Basket)
+                .ThenInclude(x => x.Items)
+                .ThenInclude(x => x.Calories)
                 .FirstOrDefaultAsync(x => x.Id == input.Id);
 
             if (order == null)

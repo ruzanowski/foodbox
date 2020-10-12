@@ -3,15 +3,17 @@ using System;
 using Food.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Food.Migrations
 {
     [DbContext(typeof(FoodDbContext))]
-    partial class FoodDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201011223922_OptionalPreferableTime")]
+    partial class OptionalPreferableTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1644,9 +1646,6 @@ namespace Food.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal>("AdditionToPrice")
-                        .HasColumnType("numeric");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -1761,17 +1760,11 @@ namespace Food.Migrations
                     b.Property<int?>("BasketId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("CaloriesAdditionalPriceBought")
-                        .HasColumnType("numeric");
-
                     b.Property<int?>("CaloriesId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Count")
                         .HasColumnType("integer");
-
-                    b.Property<decimal>("CountBought")
-                        .HasColumnType("numeric");
 
                     b.Property<int?>("CutleryFeeId")
                         .HasColumnType("integer");
@@ -1795,9 +1788,6 @@ namespace Food.Migrations
                         .HasColumnType("integer");
 
                     b.Property<decimal>("DeliveryNetFeeBought")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("DeliveryTimesCountBought")
                         .HasColumnType("numeric");
 
                     b.Property<int?>("DiscountId")
