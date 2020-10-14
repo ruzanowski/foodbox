@@ -12,6 +12,7 @@ namespace Food.Product.Dto
         public decimal PriceNet { get; set; }
         public decimal PriceGross { get; set; }
         public string ImagePath { get; set; }
+        public int TaxId { get; set; }
         public TaxDto Tax { get; set; }
     }
 }
