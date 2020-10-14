@@ -101,7 +101,7 @@ namespace Food.Orders
 
             MapToEntity(input, order);
 
-            await Repository.InsertOrUpdateAndGetIdAsync(order);
+            await Repository.UpdateAsync(order);
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return await GetAsync(input);

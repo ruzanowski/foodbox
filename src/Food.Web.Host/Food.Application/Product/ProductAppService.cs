@@ -50,9 +50,25 @@ namespace Food.Product
         }
 
         [AbpAuthorize(PermissionNames.Pages_Products)]
-        public override Task<ProductDto> UpdateAsync(ProductDto input)
+        public override async Task<ProductDto> UpdateAsync(ProductDto input)
         {
-            return base.UpdateAsync(input);
+            CheckCreatePermission();
+
+            var tax = await _taxRepository.GetAsync(input.TaxId);
+
+            if (tax == null)
+            {
+                throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Tax), input.TaxId);
+            }
+
+            var product = ObjectMapper.Map<Ordering.Product>(input);
+
+            product.Tax ??= tax;
+
+            await Repository.UpdateAsync(product);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToEntityDto(product);
         }
 
         protected override IQueryable<Ordering.Product> CreateFilteredQuery(PagedResultRequestDto input)
