@@ -33,13 +33,14 @@ namespace Food.Product
                 throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Tax), input.TaxId);
             }
 
-            var order = ObjectMapper.Map<Ordering.Product>(input);
+            var product = ObjectMapper.Map<Ordering.Product>(input);
 
-            order.Tax ??= tax;
+            product.Tax ??= tax;
 
+            await Repository.InsertAsync(product);
             await CurrentUnitOfWork.SaveChangesAsync();
 
-            return MapToEntityDto(order);
+            return MapToEntityDto(product);
         }
 
         [AbpAuthorize(PermissionNames.Pages_Products)]

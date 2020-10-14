@@ -98,7 +98,7 @@ namespace Food.EntityFrameworkCore.Seed.Host
 
                 user.Password =
                     new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions()))
-                        .HashPassword(user, "fitruna_#!");
+                        .HashPassword(user, "[@]54-36[%]31-53[^]83-25");
                 user.SetNormalizedNames();
 
                 adminUserForHost = _context.Users.Add(user).Entity;
