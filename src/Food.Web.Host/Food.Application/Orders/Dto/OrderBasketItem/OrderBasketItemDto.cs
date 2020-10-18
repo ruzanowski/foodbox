@@ -12,6 +12,11 @@ namespace Food.Orders.Dto.OrderBasketItem
     [AutoMapFrom(typeof(Ordering.OrderBasketItem))]
     public class OrderBasketItemDto
     {
+        public int ProductId { get; set; }
+        public int CaloriesId { get; set; }
+        public int DiscountId { get; set; }
+        public int CutleryId { get; set; }
+        public int DeliveryId { get; set; }
         public ProductDto Product { get; set; }
         public CaloriesDto Calories { get; set; }
         public DiscountDto Discount { get; set; }

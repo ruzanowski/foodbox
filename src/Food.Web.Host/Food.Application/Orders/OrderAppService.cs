@@ -101,6 +101,15 @@ namespace Food.Orders
 
             MapToEntity(input, order);
 
+            //null to avoid already tracked entity
+            foreach (var orderBasketItem in order.Basket.Items)
+            {
+                orderBasketItem.Calories = null;
+                orderBasketItem.Cutlery = null;
+                orderBasketItem.Delivery = null;
+                orderBasketItem.Discount = null;
+            }
+
             await Repository.UpdateAsync(order);
             await CurrentUnitOfWork.SaveChangesAsync();
 
