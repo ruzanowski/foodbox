@@ -13,7 +13,7 @@ namespace Food.Orders.Dto.OrderBasketItem
     public class OrderBasketItemDto
     {
         public int ProductId { get; set; }
-        public int CaloriesId { get; set; }
+        public int? CaloriesId { get; set; }
         public int? DiscountId { get; set; }
         public int? CutleryId { get; set; }
         public int? DeliveryId { get; set; }

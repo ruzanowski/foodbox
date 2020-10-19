@@ -23,21 +23,5 @@ namespace Food.Ordering
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
         public User DeleterUser { get; set; }
-
-        public void Set(int? discountId, int? deliveryId)
-        {
-            foreach (var orderBasketItem in Basket.Items)
-            {
-                orderBasketItem.SetValues(deliveryId, discountId);
-            }
-        }
-
-        public void CalculateBasket(int? discountId, int? deliveryId)
-        {
-            foreach (var orderBasketItem in Basket.Items)
-            {
-                orderBasketItem.CalculatePrices(deliveryId, discountId);
-            }
-        }
     }
 }
