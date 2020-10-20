@@ -13,6 +13,7 @@ namespace Food.Additionals.Dto
         public decimal Value { get; set; }
         public AdditionalsType Type { get; set; }
         public decimal ValueGross { get; set; }
+        public int TaxId { get; set; }
         public TaxDto Tax { get; set; }
     }
 }

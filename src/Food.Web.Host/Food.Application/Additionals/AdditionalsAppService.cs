@@ -13,15 +13,33 @@ namespace Food.Additionals
 {
     public class AdditionalsAppService :
         AsyncCrudAppService<Ordering.Dictionaries.Additionals, AdditionalsDto, int, PagedResultRequestDto, CreateAdditionalsDto, AdditionalsDto>, IAdditionalsAppService
-    {
-        public AdditionalsAppService(IRepository<Ordering.Dictionaries.Additionals, int> repository) : base(repository)
+    {        private readonly IRepository<Ordering.Dictionaries.Tax> _taxRepository;
+
+        public AdditionalsAppService(IRepository<Ordering.Dictionaries.Additionals, int> repository, IRepository<Ordering.Dictionaries.Tax> taxRepository) : base(repository)
         {
+            _taxRepository = taxRepository;
         }
 
         [AbpAuthorize(PermissionNames.Pages_Additionals)]
-        public override Task<AdditionalsDto> CreateAsync(CreateAdditionalsDto input)
+        public override async Task<AdditionalsDto> CreateAsync(CreateAdditionalsDto input)
         {
-            return base.CreateAsync(input);
+            CheckCreatePermission();
+
+            var tax = await _taxRepository.GetAsync(input.TaxId);
+
+            if (tax == null)
+            {
+                throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Additionals), input.TaxId);
+            }
+
+            var product = ObjectMapper.Map<Ordering.Dictionaries.Additionals>(input);
+
+            product.Tax ??= tax;
+
+            await Repository.InsertAsync(product);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToEntityDto(product);
         }
 
         [AbpAuthorize(PermissionNames.Pages_Additionals)]
@@ -31,9 +49,26 @@ namespace Food.Additionals
         }
 
         [AbpAuthorize(PermissionNames.Pages_Additionals)]
-        public override Task<AdditionalsDto> UpdateAsync(AdditionalsDto input)
+        public override async Task<AdditionalsDto> UpdateAsync(AdditionalsDto input)
         {
-            return base.UpdateAsync(input);
+            CheckCreatePermission();
+
+            var tax = await _taxRepository.GetAsync(input.TaxId);
+
+            if (tax == null)
+            {
+                throw new EntityNotFoundException(typeof(Ordering.Dictionaries.Additionals), input.TaxId);
+            }
+
+            input.Tax = null;
+            var product = ObjectMapper.Map<Ordering.Dictionaries.Additionals>(input);
+
+            product.Tax ??= tax;
+
+            await Repository.UpdateAsync(product);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToEntityDto(product);
         }
 
         protected override IQueryable<Ordering.Dictionaries.Additionals> CreateFilteredQuery(PagedResultRequestDto input)
