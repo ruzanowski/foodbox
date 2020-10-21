@@ -36,7 +36,6 @@ namespace Food.Orders.Dto.OrderBasketItem
         public decimal CutleryFeeGrossFeeBought { get; set; } // readonly
         public decimal TotalPriceBought { get; set; } // readonly
         [Required]
-
         public IEnumerable<DeliveryTimeDto> DeliveryTimes { get; set; }
     }
 }

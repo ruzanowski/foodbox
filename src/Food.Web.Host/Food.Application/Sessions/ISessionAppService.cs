@@ -6,6 +6,6 @@ namespace Food.Sessions
 {
     public interface ISessionAppService : IApplicationService
     {
-        Task<GetCurrentLoginInformationsOutput> GetCurrentLoginInformations();
+        Task<GetInitialInformation> GetCurrentLoginInformations();
     }
 }

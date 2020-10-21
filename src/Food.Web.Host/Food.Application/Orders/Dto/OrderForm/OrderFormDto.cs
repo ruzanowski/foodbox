@@ -24,12 +24,8 @@ namespace Food.Orders.Dto.OrderForm
         public string PostCode { get; set; }
         [Required]
         public string BuildingNumber { get; set; }
-        [Required]
         public string FlatNumber { get; set; }
-        [Required]
         public string GateAccessCode { get; set; }
-        [Required]
         public string Remarks { get; set; }
-
     }
 }

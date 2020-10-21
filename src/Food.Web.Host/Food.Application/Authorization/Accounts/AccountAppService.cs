@@ -1,8 +1,13 @@
 using System.Threading.Tasks;
 using Abp.Configuration;
 using Abp.Zero.Configuration;
+using Food.Additionals;
 using Food.Authorization.Accounts.Dto;
 using Food.Authorization.Users;
+using Food.Calories;
+using Food.Discount;
+using Food.Product;
+using Food.Tax;
 
 namespace Food.Authorization.Accounts
 {
@@ -12,12 +17,6 @@ namespace Food.Authorization.Accounts
         public const string PasswordRegex = "(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)[0-9a-zA-Z!@#$%^&*()]*$";
 
         private readonly UserRegistrationManager _userRegistrationManager;
-
-        public AccountAppService(
-            UserRegistrationManager userRegistrationManager)
-        {
-            _userRegistrationManager = userRegistrationManager;
-        }
 
         public async Task<IsTenantAvailableOutput> IsTenantAvailable(IsTenantAvailableInput input)
         {
@@ -52,6 +51,11 @@ namespace Food.Authorization.Accounts
             {
                 CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin)
             };
+        }
+
+        public AccountAppService(CaloriesAppService caloriesService, ProductAppService productService, DiscountAppService discountService, AdditionalsAppService additionalsService, TaxAppService taxService, UserRegistrationManager userRegistrationManager) : base(caloriesService, productService, discountService, additionalsService, taxService)
+        {
+            _userRegistrationManager = userRegistrationManager;
         }
     }
 }
