@@ -1893,8 +1893,17 @@ namespace Food.Migrations
                     b.Property<string>("PaymentProvider")
                         .HasColumnType("text");
 
+                    b.Property<decimal>("TaxPaid")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("TransactionId")
                         .HasColumnType("text");
+
+                    b.Property<decimal>("ValueGrossPaid")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("ValuePaid")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 

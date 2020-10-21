@@ -120,7 +120,11 @@ namespace Food.EntityFrameworkCore.Seed.Order
                     },
                     Payment = new Payment
                     {
-                        TransactionId = "Test-1"
+                        TransactionId = "Test-1",
+                        PaymentProvider = "PayU",
+                        ValuePaid = 1234,
+                        TaxPaid = 123,
+                        ValueGrossPaid = 1434
                     }
                 },
                 new Ordering.Order
@@ -203,7 +207,11 @@ namespace Food.EntityFrameworkCore.Seed.Order
                     },
                     Payment = new Payment
                     {
-                        TransactionId = "Test-2"
+                        TransactionId = "Test-2",
+                        PaymentProvider = "TPay",
+                        ValuePaid = 3134,
+                        TaxPaid = 133,
+                        ValueGrossPaid = 3267
                     }
                 }
             };

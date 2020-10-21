@@ -6,5 +6,8 @@ namespace Food.Ordering
     {
         public string TransactionId { get; set; }
         public string PaymentProvider { get; set; }
+        public decimal ValuePaid { get; set; }
+        public decimal ValueGrossPaid { get; set; }
+        public decimal TaxPaid { get; set; }
     }
 }
