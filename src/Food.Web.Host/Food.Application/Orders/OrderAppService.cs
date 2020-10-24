@@ -5,6 +5,7 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
+using Abp.Runtime.Session;
 using Food.Authorization;
 using Food.Ordering;
 using Food.Orders.Dto.Order;
@@ -12,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Food.Orders
 {
-    [AbpAuthorize(PermissionNames.Pages_Orders)]
     public class OrderAppService :
         AsyncCrudAppService<Order, OrderDto, int, PagedResultRequestDto, CreateOrderDto, OrderDto>, IOrderAppService
     {
@@ -40,6 +40,8 @@ namespace Food.Orders
         {
             CheckCreatePermission();
 
+            var userId = AbpSession.GetUserId();
+
             var order = ObjectMapper.Map<Order>(input);
 
             await CalculateBasket(order.Basket);
@@ -50,11 +52,36 @@ namespace Food.Orders
             return MapToEntityDto(order);
         }
 
+        [AbpAuthorize(PermissionNames.Pages_Orders)]
+        public override Task DeleteAsync(EntityDto<int> input)
+        {
+            return base.DeleteAsync(input);
+        }
+
+        [AbpAuthorize(PermissionNames.Pages_Orders)]
+        public override Task<OrderDto> GetAsync(EntityDto<int> input)
+        {
+            return base.GetAsync(input);
+        }
+
+        [AbpAuthorize(PermissionNames.Pages_Orders)]
+        public override Task<PagedResultDto<OrderDto>> GetAllAsync(PagedResultRequestDto input)
+        {
+            return base.GetAllAsync(input);
+        }
+        [AbpAuthorize(PermissionNames.Pages_Orders)]
         public override async Task<OrderDto> UpdateAsync(OrderDto input)
         {
             CheckUpdatePermission();
 
             var order = await GetEntityByIdAsync(input.Id);
+
+            var userId = AbpSession.GetUserId();
+
+            if (!userId.Equals(order.CreatorUserId) && !await IsGrantedAsync(PermissionNames.Pages_Orders))
+            {
+                throw new AbpAuthorizationException("Brak dostępu dla nie swoich zamówień.");
+            }
 
             MapToEntity(input, order);
 
@@ -133,6 +160,7 @@ namespace Food.Orders
 
             return order;
         }
+        [AbpAllowAnonymous]
         public async Task AssignPayment(int orderId, int paymentId)
         {
             var order = await Repository.GetAllIncluding(x => x.Payment)
@@ -141,6 +169,12 @@ namespace Food.Orders
             if (order is null)
             {
                 throw new EntityNotFoundException(typeof(Order), orderId);
+            }
+            var userId = AbpSession.GetUserId();
+
+            if (!userId.Equals(order.CreatorUserId) && !await IsGrantedAsync(PermissionNames.Pages_Orders))
+            {
+                throw new AbpAuthorizationException("Brak dostępu dla nie swoich zamówień.");
             }
 
             var payment = await _paymentRepository
