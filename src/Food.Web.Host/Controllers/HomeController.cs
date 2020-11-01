@@ -47,5 +47,11 @@ namespace Food.Web.Host.Controllers
 
             return Content("Sent notification: " + message);
         }
+
+        [HttpGet]
+        public IActionResult GetCacheItem()
+        {
+            return Redirect("/swagger");
+        }
     }
 }

@@ -15,10 +15,13 @@ namespace Food.Configuration
     {
         public async Task ChangeUiTheme(ChangeUiThemeInput input)
         {
-            await SettingManager.ChangeSettingForUserAsync(AbpSession.ToUserIdentifier(), AppSettingNames.UiTheme, input.Theme);
+            await SettingManager.ChangeSettingForUserAsync(AbpSession.ToUserIdentifier(), AppSettingNames.UiTheme,
+                input.Theme);
         }
 
-        public ConfigurationAppService(CaloriesAppService caloriesService, ProductAppService productService, DiscountAppService discountService, AdditionalsAppService additionalsService, TaxAppService taxService) : base(caloriesService, productService, discountService, additionalsService, taxService)
+        public ConfigurationAppService(CaloriesAppService caloriesService, ProductAppService productService,
+            DiscountAppService discountService, AdditionalsAppService additionalsService, TaxAppService taxService) :
+            base(caloriesService, productService, discountService, additionalsService, taxService)
         {
         }
     }

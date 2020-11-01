@@ -1510,6 +1510,24 @@ namespace Food.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("Food.Cache.CachedItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Payload")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CachedItems");
+                });
+
             modelBuilder.Entity("Food.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
