@@ -3,15 +3,17 @@ using System;
 using Food.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Food.Migrations
 {
     [DbContext(typeof(FoodDbContext))]
-    partial class FoodDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201021173134_PaymentsExtendedWithValues")]
+    partial class PaymentsExtendedWithValues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1510,24 +1512,6 @@ namespace Food.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("Food.Cache.CachedItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Ip")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Payload")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CachedItems");
-                });
-
             modelBuilder.Entity("Food.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -1598,12 +1582,9 @@ namespace Food.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("CreatorIp")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Baskets");
+                    b.ToTable("Basket");
                 });
 
             modelBuilder.Entity("Food.Ordering.DeliveryTime", b =>

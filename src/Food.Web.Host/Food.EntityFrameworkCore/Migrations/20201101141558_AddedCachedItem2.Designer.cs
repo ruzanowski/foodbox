@@ -3,15 +3,17 @@ using System;
 using Food.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Food.Migrations
 {
     [DbContext(typeof(FoodDbContext))]
-    partial class FoodDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201101141558_AddedCachedItem2")]
+    partial class AddedCachedItem2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1598,12 +1600,9 @@ namespace Food.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("CreatorIp")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Baskets");
+                    b.ToTable("Basket");
                 });
 
             modelBuilder.Entity("Food.Ordering.DeliveryTime", b =>

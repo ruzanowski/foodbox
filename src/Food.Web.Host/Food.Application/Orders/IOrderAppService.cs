@@ -8,5 +8,6 @@ namespace Food.Orders
     public interface IOrderAppService : IAsyncCrudAppService<OrderDto, int, PagedResultRequestDto, CreateOrderDto, OrderDto>
     {
         Task AssignPayment(int orderId, int paymentId);
+        Task<Ordering.Basket> CalculateBasket(Ordering.Basket basket);
     }
 }

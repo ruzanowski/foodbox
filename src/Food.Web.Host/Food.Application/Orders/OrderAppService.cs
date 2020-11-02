@@ -190,7 +190,7 @@ namespace Food.Orders
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        private async Task CalculateBasket(Basket basket)
+        public async Task<Ordering.Basket> CalculateBasket(Ordering.Basket basket)
         {
             var discount = GetDiscount(basket);
 
@@ -203,9 +203,11 @@ namespace Food.Orders
 
                 item.Update(product, calories, delivery, cutlery, discount);
             }
+
+            return basket;
         }
 
-        private Ordering.Dictionaries.Discount GetDiscount(Basket basket)
+        private Ordering.Dictionaries.Discount GetDiscount(Ordering.Basket basket)
         {
             var cumulativeDays = basket.Items.Sum(orderBasketItem => orderBasketItem.DeliveryTimes.Count());
             var discounts = _discountRepository
